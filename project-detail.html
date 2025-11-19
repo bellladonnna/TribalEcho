@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目详情 - Tribal Echo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 项目详情页面特有样式 */
+        .project-detail-header {
+            padding: 60px 0 40px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .project-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        .project-breadcrumb a {
+            color: var(--color-medium-gray);
+            transition: color var(--transition-fast) ease;
+        }
+
+        .project-breadcrumb a:hover {
+            color: var(--color-black);
+        }
+
+        .project-breadcrumb-separator {
+            color: var(--color-light-gray);
+        }
+
+        .project-detail-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: var(--font-weight-bold);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            color: var(--color-black);
+        }
+
+        .project-detail-meta {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .project-detail-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .creator-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: var(--color-bg-gray);
+            overflow: hidden;
+        }
+
+        .creator-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .creator-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .creator-name {
+            font-size: 18px;
+            font-weight: var(--font-weight-medium);
+            color: var(--color-black);
+        }
+
+        .creator-role {
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        .project-detail-date {
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        .project-detail-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .project-detail-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: var(--font-weight-medium);
+            color: var(--color-purple-blue);
+            background-color: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            transition: all var(--transition-fast) ease;
+        }
+
+        .project-detail-tag:hover {
+            background-color: rgba(99, 102, 241, 0.15);
+            border-color: var(--color-purple-blue);
+        }
+
+        .project-detail-hero {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+        }
+
+        .project-detail-hero-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .project-detail-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-detail-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .project-overview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .project-description {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--color-dark-gray);
+        }
+
+        .project-description p {
+            margin-bottom: 24px;
+        }
+
+        .project-description h2 {
+            font-size: 28px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin: 40px 0 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .project-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .project-info-card {
+            background-color: var(--color-bg-gray);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .project-info-title {
+            font-size: 16px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-info-item {
+            margin-bottom: 16px;
+        }
+
+        .project-info-label {
+            font-size: 12px;
+            color: var(--color-medium-gray);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-info-value {
+            font-size: 14px;
+            color: var(--color-black);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .project-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .project-action-btn {
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: var(--font-weight-medium);
+            border-radius: 8px;
+            transition: all var(--transition-fast) ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .project-action-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .project-action-primary:hover {
+            background-color: var(--color-dark-gray);
+            transform: translateY(-2px);
+        }
+
+        .project-action-secondary {
+            background-color: transparent;
+            color: var(--color-black);
+            border: 1px solid var(--color-border);
+        }
+
+        .project-action-secondary:hover {
+            border-color: var(--color-black);
+        }
+
+        .project-gallery {
+            margin: 60px 0;
+        }
+
+        .project-gallery h3 {
+            font-size: 24px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .gallery-grid-large {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .gallery-grid-large .gallery-item:first-child {
+            grid-column: span 2;
+            aspect-ratio: 16/8;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-process {
+            margin: 80px 0;
+            padding: 60px 0;
+            background-color: var(--color-bg-gray);
+        }
+
+        .process-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .process-title {
+            font-size: 32px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .process-timeline {
+            position: relative;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--color-border);
+            transform: translateX(-50%);
+        }
+
+        .process-step {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .process-content {
+            width: 45%;
+            padding: 32px;
+            background-color: var(--color-white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .process-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: var(--font-weight-bold);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .process-step h4 {
+            font-size: 20px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 12px;
+        }
+
+        .process-step p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--color-dark-gray);
+        }
+
+        .project-detail-footer {
+            border-top: 1px solid var(--color-border);
+            padding: 40px 0;
+            background-color: var(--color-bg-gray);
+        }
+
+        .related-projects {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .related-projects h3 {
+            font-size: 32px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .related-card {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all var(--transition-fast) ease;
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .related-card:hover .related-image img {
+            transform: scale(1.05);
+        }
+
+        .related-content {
+            padding: 20px;
+        }
+
+        .related-title {
+            font-size: 18px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .related-meta {
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .project-overview {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .project-sidebar {
+                position: static;
+            }
+
+            .gallery-grid-large {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid-large .gallery-item:first-child {
+                grid-column: span 1;
+                aspect-ratio: 16/9;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-detail-header {
+                padding: 40px 0 30px;
+            }
+
+            .project-detail-title {
+                font-size: 28px;
+            }
+
+            .project-detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .project-detail-content {
+                font-size: 16px;
+            }
+
+            .process-timeline::before {
+                left: 20px;
+            }
+
+            .process-step,
+            .process-step:nth-child(even) {
+                flex-direction: column;
+                padding-left: 60px;
+            }
+
+            .process-content {
+                width: 100%;
+            }
+
+            .process-number {
+                left: 20px;
+                transform: translateX(-50%);
+            }
+
+            .gallery-grid-large {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 加载动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .fade-in-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in-delay-3 {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部横幅区域 -->
+    <section class="top-banner">
+        <div class="banner-item">
+            <span class="banner-label">NICER TUESDAYS</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">NICE LIST</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">ONES TO WATCH</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">INSIGHTS</span>
+        </div>
+    </section>
+
+    <!-- 顶部导航栏 -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+            
+            <div class="logo">
+                <a href="index.html" class="logo-link">Tribal Echo</a>
+            </div>
+            
+            <div class="header-actions">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 下拉菜单 -->
+    <nav class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-menu-content">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects + Creatives</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#insights" class="nav-link">Insights + Opinion</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources + Advice</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#culture" class="nav-link">Culture + Lifestyle</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 下拉菜单遮罩 -->
+    <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+    <!-- 搜索面板 -->
+    <div class="search-panel" id="searchPanel">
+        <div class="search-panel-container">
+            <input type="text" class="search-input" placeholder="Search for articles, projects, creatives..." autofocus>
+            <button class="search-close" id="searchClose" aria-label="Close search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- 项目详情内容 -->
+    <main class="main-content">
+        <!-- 项目头部信息 -->
+        <section class="project-detail-header">
+            <div class="container">
+                <div class="project-breadcrumb fade-in">
+                    <a href="index.html">首页</a>
+                    <span class="project-breadcrumb-separator">→</span>
+                    <a href="#projects">项目</a>
+                    <span class="project-breadcrumb-separator">→</span>
+                    <span id="categoryBreadcrumb">Graphic Design</span>
+                </div>
+                
+                <h1 class="project-detail-title fade-in fade-in-delay-1" id="projectTitle">
+                    Abstract Forms in Motion
+                </h1>
+                
+                <div class="project-detail-meta fade-in fade-in-delay-2">
+                    <div class="project-detail-author">
+                        <div class="creator-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Creator">
+                        </div>
+                        <div class="creator-info">
+                            <span class="creator-name" id="creatorName">Sarah Johnson</span>
+                            <span class="creator-role" id="creatorRole">Graphic Designer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-detail-date" id="projectDate">
+                        2025年1月发布
+                    </div>
+                    
+                    <div class="project-detail-tags" id="projectTags">
+                        <span class="project-detail-tag">Abstract</span>
+                        <span class="project-detail-tag">Motion Design</span>
+                        <span class="project-detail-tag">Digital Art</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主图片 -->
+        <section class="project-detail-hero">
+            <div class="project-detail-hero-image fade-in fade-in-delay-3">
+                <img id="heroImage" src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&h=450&fit=crop" alt="Project hero image">
+            </div>
+        </section>
+
+        <!-- 项目内容 -->
+        <section class="project-detail-content">
+            <div class="project-overview">
+                <div class="project-description fade-in fade-in-delay-3">
+                    <p>这是一个探索抽象形式与动态结合的创新设计项目。通过几何形状的流动变换和色彩的和谐搭配，创造出视觉上令人惊叹的动态效果。项目展示了现代数字艺术的可能性，将静态的抽象元素转化为具有生命力的视觉体验。</p>
+                    
+                    <p>在这个项目中，我们探索了空间、时间和形态之间的关系。每个形状都有其独特的运动轨迹，通过精确的数学计算和艺术直觉的结合，创造出既有序又自然的视觉效果。色彩的渐变和叠加进一步增强了作品的深度和维度感。</p>
+                    
+                    <h2>设计理念</h2>
+                    <p>项目的核心理念源于对现代生活复杂性的反思。在快节奏的数字时代，我们追求简洁而有力的视觉表达。抽象形式提供了无限的创意空间，而动态效果则赋予了作品现代感和生命力。</p>
+                    
+                    <p>通过这个项目，我希望能够挑战观众对传统艺术的认知，展示数字技术在创意表达中的巨大潜力。每一个动画都经过精心设计，既保持视觉上的美感，又传达深层的情感和思考。</p>
+                </div>
+
+                <div class="project-sidebar fade-in fade-in-delay-3">
+                    <div class="project-info-card">
+                        <h4 class="project-info-title">项目信息</h4>
+                        
+                        <div class="project-info-item">
+                            <div class="project-info-label">类型</div>
+                            <div class="project-info-value">动态设计</div>
+                        </div>
+                        
+                        <div class="project-info-item">
+                            <div class="project-info-label">完成时间</div>
+                            <div class="project-info-value">2025年1月</div>
+                        </div>
+                        
+                        <div class="project-info-item">
+                            <div class="project-info-label">软件工具</div>
+                            <div class="project-info-value">After Effects, Cinema 4D</div>
+                        </div>
+                        
+                        <div class="project-info-item">
+                            <div class="project-info-label">分辨率</div>
+                            <div class="project-info-value">4K</div>
+                        </div>
+                        
+                        <div class="project-info-item">
+                            <div class="project-info-label">时长</div>
+                            <div class="project-info-value">2分30秒</div>
+                        </div>
+                    </div>
+
+                    <div class="project-actions">
+                        <button class="project-action-btn project-action-primary">联系创作者</button>
+                        <button class="project-action-btn project-action-secondary">分享项目</button>
+                        <button class="project-action-btn project-action-secondary">收藏项目</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 项目画廊 -->
+            <div class="project-gallery fade-in fade-in-delay-3">
+                <h3>项目展示</h3>
+                <div class="gallery-grid-large">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=600&fit=crop" alt="Main project view">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&h=450&fit=crop" alt="Detail shot 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&h=450&fit=crop" alt="Detail shot 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 创作过程 -->
+        <section class="project-process">
+            <div class="process-container">
+                <h3 class="process-title fade-in">创作过程</h3>
+                
+                <div class="process-timeline">
+                    <div class="process-step fade-in fade-in-delay-1">
+                        <div class="process-number">1</div>
+                        <div class="process-content">
+                            <h4>概念构思</h4>
+                            <p>从抽象几何形态出发，探索形状与运动的关系，建立项目的视觉基础和动态语言。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-in fade-in-delay-2">
+                        <div class="process-number">2</div>
+                        <div class="process-content">
+                            <h4>原型制作</h4>
+                            <p>使用基础软件制作初步动画原型，测试不同的运动轨迹和时间安排。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-in fade-in-delay-3">
+                        <div class="process-number">3</div>
+                        <div class="process-content">
+                            <h4>精细渲染</h4>
+                            <p>在专业3D软件中进行精细建模和渲染，添加材质和光照效果，提升视觉质量。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step fade-in fade-in-delay-4">
+                        <div class="process-number">4</div>
+                        <div class="process-content">
+                            <h4>后期合成</h4>
+                            <p>在After Effects中进行后期处理，添加特效和色彩校正，完成最终合成。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 相关项目推荐 -->
+    <section class="project-detail-footer">
+        <div class="related-projects">
+            <h3>相关项目</h3>
+            <div class="related-grid" id="relatedProjects">
+                <!-- 相关项目将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-newsletter">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Get the latest creative inspiration delivered to your inbox</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+            
+            <div class="footer-social">
+                <a href="#" class="social-link" aria-label="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"></line>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">About Us</a>
+                <a href="#" class="footer-link">Advertise</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Contact</a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2025 Tribal Echo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 项目详情页面专用JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            
+            // 根据ID加载项目内容
+            loadProjectDetail(projectId);
+            
+            // 加载相关项目
+            loadRelatedProjects();
+        });
+
+        function loadProjectDetail(projectId) {
+            // 完整的项目数据，每个项目都有独特的内容
+            const projects = {
+                '1': {
+                    title: 'Abstract Forms in Motion',
+                    creator: 'Sarah Johnson',
+                    role: 'Graphic Designer',
+                    date: '2025年1月发布',
+                    category: 'Graphic Design',
+                    tags: ['Abstract', 'Motion Design', 'Digital Art'],
+                    image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=600&h=450&fit=crop',
+                    description: `
+                        <p>这是一个探索抽象形式与动态结合的创新设计项目。通过几何形状的流动变换和色彩的和谐搭配，创造出视觉上令人惊叹的动态效果。项目展示了现代数字艺术的可能性，将静态的抽象元素转化为具有生命力的视觉体验。</p>
+                        
+                        <p>在这个项目中，我们探索了空间、时间和形态之间的关系。每个形状都有其独特的运动轨迹，通过精确的数学计算和艺术直觉的结合，创造出既有序又自然的视觉效果。色彩的渐变和叠加进一步增强了作品的深度和维度感。</p>
+                        
+                        <h2>设计理念</h2>
+                        <p>项目的核心理念源于对现代生活复杂性的反思。在快节奏的数字时代，我们追求简洁而有力的视觉表达。抽象形式提供了无限的创意空间，而动态效果则赋予了作品现代感和生命力。</p>
+                        
+                        <p>通过这个项目，我希望能够挑战观众对传统艺术的认知，展示数字技术在创意表达中的巨大潜力。每一个动画都经过精心设计，既保持视觉上的美感，又传达深层的情感和思考。</p>
+                    `
+                },
+                '2': {
+                    title: 'Retro Future Poster Series',
+                    creator: 'Tom Anderson',
+                    role: 'Illustrator',
+                    date: '2025年1月发布',
+                    category: 'Illustration',
+                    tags: ['Retro', 'Poster Design', 'Futuristic'],
+                    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&h=450&fit=crop',
+                    description: `
+                        <p>这个海报系列项目融合了复古美学和未来主义元素，创造出独特的视觉风格。通过经典的排版手法与现代设计理念的结合，呈现出既有怀旧情怀又具有前瞻性的作品。</p>
+                        
+                        <p>在创作过程中，我深入研究了20世纪中叶的设计风格，同时融入了当代的视觉语言。每张海报都讲述着不同的故事，通过色彩、图形和文字的组合，传达出对未来世界的想象和期待。</p>
+                        
+                        <h2>创作灵感</h2>
+                        <p>灵感来源于对过去的回顾和对未来的思考。复古风格不仅仅是一种美学选择，更是对历史的致敬。通过现代技术的重新诠释，这些经典元素焕发出新的生命力。</p>
+                        
+                        <p>这个项目展示了如何将传统设计元素与当代审美相结合，创造出既有时代感又具有永恒性的作品。每张海报都经过精心配色，确保视觉冲击力的同时保持整体风格的统一。</p>
+                    `
+                },
+                '3': {
+                    title: 'Nature Photography Collection',
+                    creator: 'Lisa Wang',
+                    role: 'Photographer',
+                    date: '2025年1月发布',
+                    category: 'Photography',
+                    tags: ['Nature', 'Landscape', 'Wildlife'],
+                    image: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&h=450&fit=crop',
+                    description: `
+                        <p>这是一个深入探索自然之美的摄影项目，通过镜头捕捉大自然的壮丽景色和微妙细节。从雄伟的山脉到宁静的湖泊，从绚烂的日出到梦幻的星空，每一张照片都展现了自然界的不同面貌。</p>
+                        
+                        <p>在过去的一年里，摄影师走访了世界各地最著名的自然景观，等待最佳光线和天气条件，记录下这些令人窒息的瞬间。这个项目不仅是对自然美的记录，更是对环境保护的呼吁。</p>
+                        
+                        <h2>摄影技术的挑战</h2>
+                        <p>自然摄影面临着许多技术挑战，包括极端天气条件、光线变化和不可预测的野生动物行为。摄影师使用了最先进的设备和技术，包括长焦镜头、滤镜和后期处理，确保每个细节都得到完美呈现。</p>
+                        
+                        <p>通过这个项目，我们希望提醒人们珍惜自然遗产，意识到环境保护的紧迫性。每一张照片都是大自然的礼物，我们有责任保护这些美景。</p>
+                    `
+                },
+                '4': {
+                    title: 'Brand Identity for Tech Startup',
+                    creator: 'Alex Morgan',
+                    role: 'Brand Designer',
+                    date: '2025年1月发布',
+                    category: 'Branding',
+                    tags: ['Brand Identity', 'Logo Design', 'UI/UX'],
+                    image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=600&h=450&fit=crop',
+                    description: `
+                        <p>为一家创新科技公司设计的完整品牌识别系统，包括标志设计、色彩体系、字体选择和应用规范。这个项目展示了如何通过设计传达科技公司的核心价值观和创新精神。</p>
+                        
+                        <p>项目开始于深入的市场调研和用户研究，了解目标受众的偏好和期望。基于研究结果，设计团队创造了一个既有科技感又具有人文关怀的品牌形象。</p>
+                        
+                        <h2>设计过程与方法</h2>
+                        <p>设计过程采用了迭代的敏捷方法，从最初的草图到最终的数字渲染，每个阶段都充分考虑了品牌的应用场景。标志设计经过数十轮修改，确保在数字和印刷媒体上都能保持良好的可读性和识别度。</p>
+                        
+                        <p>完整的品牌识别系统包括名片、网站、移动应用、办公室装饰等所有触点的一致性设计。通过统一的设计语言，帮助品牌在竞争激烈的科技市场中建立独特的身份。</p>
+                    `
+                },
+                '5': {
+                    title: 'Experimental Typography Study',
+                    creator: 'Nina Patel',
+                    role: 'Typography Designer',
+                    date: '2025年1月发布',
+                    category: 'Typography',
+                    tags: ['Typography', 'Experimental Design', 'Font Design'],
+                    image: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=600&h=450&fit=crop',
+                    description: `
+                        <p>这是一个探索字体设计边界的实验性项目，通过创新的字体形态和排版方式，挑战传统阅读习惯。项目展示了字体作为艺术表达媒介的无限可能性。</p>
+                        
+                        <p>设计师从自然界、建筑、音乐等多个领域汲取灵感，将这些元素融入到字体设计中。每个字符都是一个独立的视觉作品，同时保持整体的和谐统一。</p>
+                        
+                        <h2>创新与传统的平衡</h2>
+                        <p>在追求创新的同时，这个项目非常重视字体的可读性和实用性。通过大量的用户测试和反馈收集，确保实验性的设计不会影响基本的阅读功能。</p>
+                        
+                        <p>项目包括一套完整的字体家族，涵盖不同的字重和风格，能够适应各种设计需求。这些字体已经用于多个实际项目中，证明了它们在实际应用中的价值。</p>
+                    `
+                },
+                '6': {
+                    title: 'Architectural Photography Series',
+                    creator: 'Chris Lee',
+                    role: 'Architectural Photographer',
+                    date: '2025年1月发布',
+                    category: 'Photography',
+                    tags: ['Architecture', 'Urban Photography', 'Design'],
+                    image: 'https://images.unsplash.com/photo-1486718448742-163732cd1544?w=600&h=450&fit=crop',
+                    description: `
+                        <p>专注于现代建筑摄影的系列作品，捕捉建筑物与光影、环境的互动关系。这个项目展示了建筑不仅是功能空间，更是艺术品和文化象征。</p>
+                        
+                        <p>摄影师走访了世界各地标志性现代建筑，在不同的时间和天气条件下进行拍摄。通过独特的角度和构图，展现了建筑物的设计哲学和空间美学。</p>
+                        
+                        <h2>摄影技术的运用</h2>
+                        <p>建筑摄影需要特殊的技术和设备。项目使用了移轴镜头来纠正透视畸变，长曝光技术来表现光影流动，HDR技术来平衡室内外光线对比。</p>
+                        
+                        <p>每张照片都经过精心后期处理，突出建筑的设计细节和材质质感。通过光影的运用，展现了建筑师的设计意图和建筑物的空间魅力。</p>
+                    `
+                }
+            };
+
+            const project = projects[projectId] || projects['1'];
+            
+            // 更新页面内容
+            document.getElementById('projectTitle').textContent = project.title;
+            document.getElementById('creatorName').textContent = project.creator;
+            document.getElementById('creatorRole').textContent = project.role;
+            document.getElementById('projectDate').textContent = project.date;
+            document.getElementById('categoryBreadcrumb').textContent = project.category;
+            document.getElementById('heroImage').src = project.image;
+            
+            // 更新标签
+            const tagsContainer = document.getElementById('projectTags');
+            tagsContainer.innerHTML = project.tags.map(tag => 
+                `<span class="project-detail-tag">${tag}</span>`
+            ).join('');
+            
+            // 更新项目描述
+            document.querySelector('.project-description').innerHTML = project.description;
+        }
+
+        function loadRelatedProjects() {
+            const relatedProjects = [
+                {
+                    title: 'Nature Photography Collection',
+                    creator: 'Lisa Wang',
+                    image: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&h=450&fit=crop'
+                },
+                {
+                    title: 'Brand Identity for Tech Startup',
+                    creator: 'Alex Morgan',
+                    image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=600&h=450&fit=crop'
+                },
+                {
+                    title: 'Experimental Typography Study',
+                    creator: 'Nina Patel',
+                    image: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?w=600&h=450&fit=crop'
+                }
+            ];
+
+            const relatedContainer = document.getElementById('relatedProjects');
+            relatedContainer.innerHTML = relatedProjects.map(project => `
+                <div class="related-card" onclick="window.location.href='project-detail.html?id=${Math.random()}';">
+                    <div class="related-image">
+                        <img src="${project.image}" alt="${project.title}">
+                    </div>
+                    <div class="related-content">
+                        <h4 class="related-title">${project.title}</h4>
+                        <p class="related-meta">Project • ${project.creator}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 处理项目操作按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 联系创作者
+            document.querySelector('.project-action-primary').addEventListener('click', function() {
+                alert('联系功能即将上线！');
+            });
+
+            // 分享项目
+            document.querySelectorAll('.project-action-secondary')[0].addEventListener('click', function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.getElementById('projectTitle').textContent,
+                        text: '查看这个精彩的设计项目',
+                        url: window.location.href
+                    });
+                } else {
+                    alert('分享链接已复制到剪贴板！');
+                }
+            });
+
+            // 收藏项目
+            document.querySelectorAll('.project-action-secondary')[1].addEventListener('click', function() {
+                this.textContent = this.textContent === '收藏项目' ? '已收藏' : '收藏项目';
+                this.style.backgroundColor = this.textContent === '已收藏' ? 'var(--color-black)' : 'transparent';
+                this.style.color = this.textContent === '已收藏' ? 'var(--color-white)' : 'var(--color-black)';
+            });
+        });
+    </script>
+    
+    <!-- Coze 智能体 SDK（会话隔离版本） -->
+    <script src="coze-agent.js"></script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情 - Tribal Echo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 详情页面特有样式 */
+        .article-detail-header {
+            padding: 60px 0 40px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .article-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        .article-breadcrumb a {
+            color: var(--color-medium-gray);
+            transition: color var(--transition-fast) ease;
+        }
+
+        .article-breadcrumb a:hover {
+            color: var(--color-black);
+        }
+
+        .article-breadcrumb-separator {
+            color: var(--color-light-gray);
+        }
+
+        .article-detail-title {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: var(--font-weight-bold);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            color: var(--color-black);
+        }
+
+        .article-detail-meta {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .article-detail-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--color-bg-gray);
+            overflow: hidden;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: var(--font-weight-medium);
+            color: var(--color-black);
+        }
+
+        .article-detail-date {
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        .article-detail-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .article-detail-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: var(--font-weight-medium);
+            color: var(--color-purple-blue);
+            background-color: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 20px;
+            transition: all var(--transition-fast) ease;
+        }
+
+        .article-detail-tag:hover {
+            background-color: rgba(99, 102, 241, 0.15);
+            border-color: var(--color-purple-blue);
+        }
+
+        .article-detail-hero {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+        }
+
+        .article-detail-hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .article-detail-hero-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .article-detail-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        .article-detail-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--color-dark-gray);
+            margin-bottom: 40px;
+        }
+
+        .article-detail-text p {
+            margin-bottom: 24px;
+        }
+
+        .article-detail-text h2 {
+            font-size: 28px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin: 48px 0 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-detail-text h3 {
+            font-size: 22px;
+            font-weight: var(--font-weight-medium);
+            color: var(--color-black);
+            margin: 32px 0 16px;
+        }
+
+        .article-detail-text blockquote {
+            margin: 32px 0;
+            padding: 0 32px;
+            border-left: 4px solid var(--color-black);
+            font-style: italic;
+            color: var(--color-medium-gray);
+        }
+
+        .article-gallery {
+            margin: 48px 0;
+        }
+
+        .article-gallery h3 {
+            font-size: 24px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 24px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            font-size: 14px;
+            color: var(--color-medium-gray);
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .article-detail-footer {
+            border-top: 1px solid var(--color-border);
+            padding: 40px 0;
+            background-color: var(--color-bg-gray);
+        }
+
+        .related-articles {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .related-articles h3 {
+            font-size: 32px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .related-card {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all var(--transition-fast) ease;
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .related-card:hover .related-image img {
+            transform: scale(1.05);
+        }
+
+        .related-content {
+            padding: 20px;
+        }
+
+        .related-title {
+            font-size: 18px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .related-meta {
+            font-size: 14px;
+            color: var(--color-medium-gray);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .article-detail-header {
+                padding: 40px 0 30px;
+            }
+
+            .article-detail-title {
+                font-size: 28px;
+            }
+
+            .article-detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .article-detail-text {
+                font-size: 16px;
+            }
+
+            .article-detail-text h2 {
+                font-size: 24px;
+            }
+
+            .article-detail-text h3 {
+                font-size: 20px;
+            }
+        }
+
+        /* 加载动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .fade-in-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in-delay-3 {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部横幅区域 -->
+    <section class="top-banner">
+        <div class="banner-item">
+            <span class="banner-label">NICER TUESDAYS</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">NICE LIST</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">ONES TO WATCH</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">INSIGHTS</span>
+        </div>
+    </section>
+
+    <!-- 顶部导航栏 -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+            
+            <div class="logo">
+                <a href="index.html" class="logo-link">Tribal Echo</a>
+            </div>
+            
+            <div class="header-actions">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 下拉菜单 -->
+    <nav class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-menu-content">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects + Creatives</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#insights" class="nav-link">Insights + Opinion</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources + Advice</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#culture" class="nav-link">Culture + Lifestyle</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 下拉菜单遮罩 -->
+    <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+    <!-- 搜索面板 -->
+    <div class="search-panel" id="searchPanel">
+        <div class="search-panel-container">
+            <input type="text" class="search-input" placeholder="Search for articles, projects, creatives..." autofocus>
+            <button class="search-close" id="searchClose" aria-label="Close search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- 文章详情内容 -->
+    <main class="main-content">
+        <!-- 文章头部信息 -->
+        <section class="article-detail-header">
+            <div class="container">
+                <div class="article-breadcrumb fade-in">
+                    <a href="index.html">首页</a>
+                    <span class="article-breadcrumb-separator">→</span>
+                    <a href="#feed">文章</a>
+                    <span class="article-breadcrumb-separator">→</span>
+                    <span id="categoryBreadcrumb">Graphic Design</span>
+                </div>
+                
+                <h1 class="article-detail-title fade-in fade-in-delay-1" id="articleTitle">
+                    Bold typography takes center stage in Studio Makgill's rebrand for cultural venue
+                </h1>
+                
+                <div class="article-detail-meta fade-in fade-in-delay-2">
+                    <div class="article-detail-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Author">
+                        </div>
+                        <div class="author-info">
+                            <span class="author-name" id="authorName">Emma Tucker</span>
+                            <span class="article-detail-date" id="articleDate">2025年1月15日</span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-detail-tags" id="articleTags">
+                        <span class="article-detail-tag">Graphic Design</span>
+                        <span class="article-detail-tag">Typography</span>
+                        <span class="article-detail-tag">Branding</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主图片 -->
+        <section class="article-detail-hero">
+            <div class="article-detail-hero-image fade-in fade-in-delay-3">
+                <img id="heroImage" src="https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg" alt="Article hero image">
+            </div>
+        </section>
+
+        <!-- 文章内容 -->
+        <section class="article-detail-content">
+            <div class="article-detail-text fade-in fade-in-delay-3" id="articleContent">
+                <p>格拉斯哥设计工作室Studio Makgill为文化场所创建了一个灵活的识别系统，该系统庆祝场所多样化的节目安排和社区焦点。这个重新设计项目通过大胆的排版和现代的视觉语言，为传统文化场所注入了新的活力。</p>
+                
+                <h2>设计理念的革新</h2>
+                <p>这个重新设计项目的核心理念是创造一个能够适应不同文化活动的视觉系统。通过灵活的排版方案和可变的设计元素，该系统能够根据不同活动的特点进行调整，同时保持整体品牌的一致性。</p>
+                
+                <blockquote>"我们的目标是创造一个既能够反映文化场所多样性，又能够传达其核心价值的视觉识别系统。" — Studio Makgill设计总监</blockquote>
+                
+                <h3>字体设计的重要性</h3>
+                <p>在这个项目中，字体设计扮演了核心角色。工作室选择了一种既有历史底蕴又具有现代感的字体，通过不同的字重和尺寸变化，创造出层次丰富的视觉效果。这种设计不仅提升了可读性，还为品牌增添了独特的个性。</p>
+            </div>
+
+            <!-- 图片画廊 -->
+            <div class="article-gallery fade-in fade-in-delay-3">
+                <h3>项目展示</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1561996333-0327989a9c6c?w=600&h=450&fit=crop" alt="Design detail">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1559028006-44e041f32112?w=600&h=450&fit=crop" alt="Typography detail">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=450&fit=crop" alt="Brand application">
+                    </div>
+                </div>
+                <p class="gallery-caption">重新设计项目在不同媒体中的应用展示</p>
+            </div>
+
+            <div class="article-detail-text fade-in fade-in-delay-3">
+                <h2>社区参与的体现</h2>
+                <p>这个重新设计项目不仅仅是一个视觉更新，更是对社区参与的重新定义。通过创建一个开放和包容的视觉语言，该系统为社区成员提供了参与和表达的空间。无论是在线下活动还是在数字平台上，这个视觉系统都能够有效地传达文化场所的核心价值观。</p>
+                
+                <p>项目的成功在于它找到了传统与现代之间的平衡点。既尊重了文化场所的历史传统，又通过现代的设计语言吸引了新一代的观众。这种平衡不仅体现在视觉设计上，更体现在整个品牌的战略思考中。</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- 相关文章推荐 -->
+    <section class="article-detail-footer">
+        <div class="related-articles">
+            <h3>相关文章</h3>
+            <div class="related-grid" id="relatedArticles">
+                <!-- 相关文章将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-newsletter">
+                <h3>Subscribe to our newsletter</h3>
+                <p>Get the latest creative inspiration delivered to your inbox</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+            
+            <div class="footer-social">
+                <a href="#" class="social-link" aria-label="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"></line>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">About Us</a>
+                <a href="#" class="footer-link">Advertise</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+                <a href="#" class="footer-link">Contact</a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2025 Tribal Echo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 详情页面专用JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            
+            // 根据ID加载文章内容
+            loadArticleDetail(articleId);
+            
+            // 加载相关文章
+            loadRelatedArticles();
+        });
+
+        function loadArticleDetail(articleId) {
+            // 完整的文章数据，每篇文章都有独特的内容
+            const articles = {
+                '1': {
+                    title: 'Bold typography takes center stage in Studio Makgill\'s rebrand for cultural venue',
+                    author: 'Emma Tucker',
+                    date: '2025年1月15日',
+                    category: 'Graphic Design',
+                    tags: ['Graphic Design', 'Typography', 'Branding'],
+                    image: 'https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg',
+                    content: `
+                        <p>格拉斯哥设计工作室Studio Makgill为文化场所创建了一个灵活的识别系统，该系统庆祝场所多样化的节目安排和社区焦点。这个重新设计项目通过大胆的排版和现代的视觉语言，为传统文化场所注入了新的活力。</p>
+                        
+                        <h2>设计理念的革新</h2>
+                        <p>这个重新设计项目的核心理念是创造一个能够适应不同文化活动的视觉系统。通过灵活的排版方案和可变的设计元素，该系统能够根据不同活动的特点进行调整，同时保持整体品牌的一致性。</p>
+                        
+                        <blockquote>"我们的目标是创造一个既能够反映文化场所多样性，又能够传达其核心价值的视觉识别系统。" — Studio Makgill设计总监</blockquote>
+                        
+                        <h3>字体设计的重要性</h3>
+                        <p>在这个项目中，字体设计扮演了核心角色。工作室选择了一种既有历史底蕴又具有现代感的字体，通过不同的字重和尺寸变化，创造出层次丰富的视觉效果。这种设计不仅提升了可读性，还为品牌增添了独特的个性。</p>
+                        
+                        <h2>社区参与的价值</h2>
+                        <p>这个重新设计不仅仅是一个视觉更新，更是对社区参与方式的重新思考。通过创建一个开放和包容的视觉语言，该系统为社区成员提供了参与和表达的空间。无论是在线下活动还是在数字平台上，这个视觉系统都能够有效地传达文化场所的核心价值观。</p>
+                    `
+                },
+                '2': {
+                    title: 'Capturing the essence of urban life through intimate street photography',
+                    author: 'James Wilson',
+                    date: '2025年1月14日',
+                    category: 'Photography',
+                    tags: ['Photography', 'Urban', 'Street Art'],
+                    image: 'https://i.pinimg.com/1200x/94/a3/f1/94a3f14b9b5e8dce4021dd69855158c4.jpg',
+                    content: `
+                        <p>一场新的展览展示了来自世界各地的城市瞬间照片，突出了日常互动中的美感。这个摄影项目通过镜头捕捉了城市生活的真实面貌，展现了我们日常生活中的诗意瞬间。</p>
+                        
+                        <h2>城市摄影的艺术</h2>
+                        <p>城市摄影不仅仅是记录建筑和街道，更是捕捉人与环境的互动关系。每一张照片都讲述着一个独特的故事，反映了现代都市生活的复杂性和多样性。</p>
+                        
+                        <h3>技术与情感的结合</h3>
+                        <p>通过精湛的摄影技巧和对人性的深刻理解，这些作品展现了城市生活中最真实、最感人的瞬间。摄影师们用镜头语言诠释了城市生活的多重意义。</p>
+                        
+                        <h2>全球城市的对话</h2>
+                        <p>这个展览汇集了来自纽约、东京、伦敦、巴黎等国际大都市的作品，通过不同文化背景的摄影师视角，展现了城市生活的共性与个性。尽管地理位置和文化背景不同，但城市中的人们都面临着相似的挑战和机遇，都在寻找属于自己的生活方式。</p>
+                    `
+                },
+                '3': {
+                    title: 'Vibrant illustrations bring children\'s book to life with magical detail',
+                    author: 'Sophie Chen',
+                    date: '2025年1月13日',
+                    category: 'Illustration',
+                    tags: ['Illustration', 'Children\'s Books', 'Digital Art'],
+                    image: 'https://i.pinimg.com/1200x/50/84/92/5084920569d5b68b2c16860b38ade283.jpg',
+                    content: `
+                        <p>一位获奖插画家讨论了她为儿童读物创造迷人世界的过程，这些作品通过神奇的细节吸引年轻读者。这个项目展示了传统绘画技巧与数字技术的完美结合。</p>
+                        
+                        <h2>创意灵感的来源</h2>
+                        <p>这个儿童读物的灵感来源于插画家童年时期的记忆和对自然世界的观察。每一个角色都融合了现实与想象，创造出既熟悉又奇妙的视觉体验。通过丰富的色彩和细腻的纹理，这些插画为读者打开了通往奇幻世界的大门。</p>
+                        
+                        <h3>技术实现的挑战</h3>
+                        <p>在创作过程中，插画家面临着将复杂情感转化为视觉语言的技术挑战。通过不断尝试不同的绘画技法和数字工具，最终找到了既保持传统手绘温度又能充分利用数字优势的创作方法。</p>
+                        
+                        <h2>与读者情感的连接</h2>
+                        <p>儿童读物不仅是娱乐工具，更是情感教育的载体。通过精心设计的故事情节和视觉元素，这本书帮助孩子们理解友情、勇气、成长等重要主题。每一个细节都经过深思熟虑，确保能够与不同年龄段的孩子产生共鸣。</p>
+                    `
+                },
+                '4': {
+                    title: 'Exploring the boundaries between digital and physical in contemporary sculpture',
+                    author: 'Michael Brown',
+                    date: '2025年1月12日',
+                    category: 'Art',
+                    tags: ['Sculpture', 'Digital Art', '3D Printing'],
+                    image: 'https://i.pinimg.com/1200x/19/b1/55/19b155070168c164ada675d98d1d5437.jpg',
+                    content: `
+                        <p>一位新兴艺术家将3D打印技术与传统技法相结合，质疑我们与科技的关系。这个雕塑项目探索了数字时代艺术的边界，通过实体作品展现了虚拟与现实的交融。</p>
+                        
+                        <h2>创作哲学</h2>
+                        <p>这个项目的核心问题是：在数字时代，什么是"真实"？艺术家通过将数字代码转化为物理实体，挑战了观众对现实和虚拟界限的认知。每一个雕塑都是数字算法与手工技艺的对话产物。</p>
+                        
+                        <h3>技术创新与传统工艺</h3>
+                        <p>创作过程中，艺术家首先通过编程生成基础形态，然后使用传统材料进行手工修饰和完善。这种方法不仅保留了数字创作的精确性，还融入了手工制作的不可预测性和人情味。</p>
+                        
+                        <h2>社会反思的意义</h2>
+                        <p>这个雕塑系列不仅仅是对技术美学的探索，更是对现代社会过度依赖技术的深刻反思。通过展示数字与物理的融合，艺术家邀请观众思考如何在保持人文关怀的同时拥抱技术进步。</p>
+                    `
+                },
+                '5': {
+                    title: 'Minimalist packaging design wins international award for sustainability',
+                    author: 'Rachel Green',
+                    date: '2025年1月11日',
+                    category: 'Graphic Design',
+                    tags: ['Packaging Design', 'Sustainability', 'Minimalism'],
+                    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
+                    content: `
+                        <p>伦敦工作室的环保意识为产品设计树立了新标准。这个极简包装设计项目通过创新的设计理念，实现了美观与环保的完美平衡，获得了国际可持续发展设计大奖。</p>
+                        
+                        <h2>设计理念的转变</h2>
+                        <p>传统的包装设计往往过分强调视觉冲击力，忽视了环境影响。这个项目从根本上重新思考了包装的本质，以"少即是多"为设计哲学，通过简洁的设计语言传递品牌价值。</p>
+                        
+                        <h3>材料选择的创新</h3>
+                        <p>项目团队深入研究了可生物降解材料和循环利用技术，最终选择了一种创新的纸质复合材料。这种材料不仅在视觉上具有高级质感，还能在使用后快速自然降解，真正实现了零废弃设计。</p>
+                        
+                        <h2>行业影响与示范效应</h2>
+                        <p>这个获奖项目已经开始影响整个包装设计行业。越来越多的品牌开始关注可持续性，重新审视自己的包装策略。这不仅是一个设计成功案例，更是推动行业向更环保方向发展的催化剂。</p>
+                    `
+                },
+                '6': {
+                    title: 'Documenting endangered cultures before they disappear',
+                    author: 'David Martinez',
+                    date: '2025年1月10日',
+                    category: 'Photography',
+                    tags: ['Documentary Photography', 'Cultural Heritage', 'Anthropology'],
+                    image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&h=500&fit=crop',
+                    content: `
+                        <p>一位摄影记者用十年时间记录了受现代化威胁的传统生活方式。这个纪录片摄影项目致力于保存濒危文化的视觉档案，为后代留下珍贵的人类文化遗产。</p>
+                        
+                        <h2>十年记录的旅程</h2>
+                        <p>从亚马逊雨林到喜马拉雅山脉，摄影师跨越了五大洲，记录了50多个濒临消失的文化群体。每一个画面都承载着一个民族的记忆，每一个故事都是人类多样性的见证。</p>
+                        
+                        <h3>技术挑战与人文关怀</h3>
+                        <p>在偏远地区的拍摄过程中，摄影师面临着恶劣的自然环境和复杂的沟通挑战。但更重要的是如何在记录的同时尊重当地文化，避免将拍摄对象客体化。通过长期居住和深入交流，摄影师建立起了基于信任的合作关系。</p>
+                        
+                        <h2>紧迫的文化危机</h2>
+                        <p>全球化和现代化进程正在以前所未有的速度改变着传统文化。许多语言、习俗、技艺都面临着消失的危险。这个项目不仅是艺术创作，更是一场与文化消失赛跑的紧急行动，呼吁社会对文化多样性保护的重视。</p>
+                    `
+                }
+            };
+
+            const article = articles[articleId] || articles['1'];
+            
+            // 更新页面内容
+            document.getElementById('articleTitle').textContent = article.title;
+            document.getElementById('authorName').textContent = article.author;
+            document.getElementById('articleDate').textContent = article.date;
+            document.getElementById('categoryBreadcrumb').textContent = article.category;
+            document.getElementById('heroImage').src = article.image;
+            
+            // 更新标签
+            const tagsContainer = document.getElementById('articleTags');
+            tagsContainer.innerHTML = article.tags.map(tag => 
+                `<span class="article-detail-tag">${tag}</span>`
+            ).join('');
+            
+            // 更新文章内容
+            document.getElementById('articleContent').innerHTML = article.content;
+        }
+
+        function loadRelatedArticles() {
+            const relatedArticles = [
+                {
+                    title: 'Vibrant illustrations bring children\'s book to life with magical detail',
+                    meta: 'Illustration • Sophie Chen',
+                    image: 'https://i.pinimg.com/1200x/50/84/92/5084920569d5b68b2c16860b38ade283.jpg'
+                },
+                {
+                    title: 'Exploring the boundaries between digital and physical in contemporary sculpture',
+                    meta: 'Art • Michael Brown',
+                    image: 'https://i.pinimg.com/1200x/19/b1/55/19b155070168c164ada675d98d1d5437.jpg'
+                },
+                {
+                    title: 'Documenting endangered cultures before they disappear',
+                    meta: 'Photography • David Martinez',
+                    image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&h=450&fit=crop'
+                }
+            ];
+
+            const relatedContainer = document.getElementById('relatedArticles');
+            relatedContainer.innerHTML = relatedArticles.map(article => `
+                <div class="related-card" onclick="window.location.href='article-detail.html?id=${Math.random()}';">
+                    <div class="related-image">
+                        <img src="${article.image}" alt="${article.title}">
+                    </div>
+                    <div class="related-content">
+                        <h4 class="related-title">${article.title}</h4>
+                        <p class="related-meta">${article.meta}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+    
+    <!-- Coze 智能体 SDK（会话隔离版本） -->
+    <script src="coze-agent.js"></script>
+</body>
+</html>

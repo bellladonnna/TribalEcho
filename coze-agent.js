@@ -243,7 +243,7 @@ diFX6F9x0k2pM7EuIqWbeg==
                     bot_id: COZE_CONFIG.botId
                 },
                 componentProps: {
-                    title: 'Coze AI助手 - 会话隔离'
+                    title: 'Coze AI助手'
                 },
                 auth: {
                     type: 'token',

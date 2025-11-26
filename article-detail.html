@@ -8,31 +8,11 @@
     <style>
         /* 详情页面特有样式 */
         .article-detail-header {
-            padding: 60px 0 40px;
+            padding: calc(60px + var(--header-height)) 0 40px;
             border-bottom: 1px solid var(--color-border);
         }
 
-        .article-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: var(--color-medium-gray);
-        }
 
-        .article-breadcrumb a {
-            color: var(--color-medium-gray);
-            transition: color var(--transition-fast) ease;
-        }
-
-        .article-breadcrumb a:hover {
-            color: var(--color-black);
-        }
-
-        .article-breadcrumb-separator {
-            color: var(--color-light-gray);
-        }
 
         .article-detail-title {
             font-size: clamp(32px, 5vw, 56px);
@@ -45,45 +25,16 @@
 
         .article-detail-meta {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .article-detail-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--color-bg-gray);
-            overflow: hidden;
-        }
-
-        .author-avatar img {
+            margin: 0;
+            flex-shrink: 0;
+            align-self: flex-start;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            clear: both;
         }
 
-        .author-info {
-            display: flex;
-            flex-direction: column;
-        }
 
-        .author-name {
-            font-weight: var(--font-weight-medium);
-            color: var(--color-black);
-        }
-
-        .article-detail-date {
-            font-size: 14px;
-            color: var(--color-medium-gray);
-        }
 
         .article-detail-tags {
             display: flex;
@@ -108,6 +59,46 @@
             border-color: var(--color-purple-blue);
         }
 
+        /* 项目信息板块样式 */
+        .project-info-card {
+            background-color: var(--color-bg-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+            width: 100%;
+        }
+
+        .project-info-title {
+            font-size: 16px;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-info-item {
+            margin-bottom: 16px;
+        }
+
+        .project-info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-info-label {
+            font-size: 12px;
+            color: var(--color-medium-gray);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-info-value {
+            font-size: 14px;
+            color: var(--color-black);
+            font-weight: var(--font-weight-medium);
+        }
+
         .article-detail-hero {
             width: 100%;
             max-width: 1200px;
@@ -115,23 +106,85 @@
             padding: 0 24px;
         }
 
+        /* 为详情页面内容添加适当的顶部间距 */
+        .article-detail-content {
+            padding-top: 0;
+        }
+
         .article-detail-hero-image {
             width: 100%;
             height: auto;
             border-radius: 12px;
             overflow: hidden;
+            min-height: auto;
+            flex-shrink: 0;
         }
 
         .article-detail-hero-image img {
             width: 100%;
             height: auto;
-            object-fit: cover;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* 文章头部左右分栏布局 */
+        .article-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin: 40px auto 0;
+            max-width: 800px;
+            padding: 0 24px;
+            min-height: auto;
+            height: auto;
+        }
+
+        .article-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            min-height: auto;
+            height: auto;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .article-header-right {
+            display: flex;
+            align-items: flex-start;
+            min-height: auto;
+            height: auto;
+        }
+
+        .article-header-right {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .article-excerpt {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--color-dark-gray);
+            margin: 16px 0 32px 0;
+            width: 100%;
+            min-height: auto;
+            flex-shrink: 0;
+            overflow: visible;
+            display: block;
+        }
+
+        .article-excerpt p {
+            margin: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
 
         .article-detail-content {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
+            margin: 80px auto 0;
+            padding: 0 24px;
         }
 
         .article-detail-text {
@@ -139,6 +192,7 @@
             line-height: 1.7;
             color: var(--color-dark-gray);
             margin-bottom: 40px;
+            margin-top: 100px;
         }
 
         .article-detail-text p {
@@ -181,22 +235,84 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
             margin-bottom: 24px;
+            justify-items: center;
         }
 
         .gallery-item {
             border-radius: 8px;
             overflow: hidden;
-            aspect-ratio: 4/3;
+            display: inline-block;
+            text-align: center;
         }
 
         .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
             transition: transform var(--transition-fast) ease;
+        }
+
+        /* 面具卡片样式 */
+        .mask-card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 12px;
+            transition: all var(--transition-fast) ease;
+        }
+
+        .mask-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .mask-card img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform var(--transition-fast) ease;
+        }
+
+        .mask-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, 
+                rgba(0, 0, 0, 0.9) 0%, 
+                rgba(0, 0, 0, 0.6) 50%, 
+                rgba(0, 0, 0, 0.2) 100%);
+            padding: 24px;
+            color: var(--color-white);
+            opacity: 0;
+            transition: opacity var(--transition-fast) ease;
+        }
+
+        .mask-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-overlay h4 {
+            font-size: 20px;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-overlay p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .gallery-item:hover img {
@@ -210,78 +326,7 @@
             margin-top: 12px;
         }
 
-        .article-detail-footer {
-            border-top: 1px solid var(--color-border);
-            padding: 40px 0;
-            background-color: var(--color-bg-gray);
-        }
 
-        .related-articles {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .related-articles h3 {
-            font-size: 32px;
-            font-weight: var(--font-weight-bold);
-            color: var(--color-black);
-            margin-bottom: 32px;
-        }
-
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-
-        .related-card {
-            background-color: var(--color-white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: all var(--transition-fast) ease;
-            cursor: pointer;
-        }
-
-        .related-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .related-image {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .related-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-fast) ease;
-        }
-
-        .related-card:hover .related-image img {
-            transform: scale(1.05);
-        }
-
-        .related-content {
-            padding: 20px;
-        }
-
-        .related-title {
-            font-size: 18px;
-            font-weight: var(--font-weight-bold);
-            color: var(--color-black);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .related-meta {
-            font-size: 14px;
-            color: var(--color-medium-gray);
-        }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -291,6 +336,29 @@
 
             .article-detail-title {
                 font-size: 28px;
+            }
+            
+            .article-detail-text {
+                margin-top: 60px;
+            }
+
+            .article-header-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-top: 30px;
+            }
+
+            .article-header-left {
+                order: 1;
+            }
+
+            .article-header-right {
+                order: 2;
+                justify-content: center;
+            }
+
+            .article-excerpt {
+                font-size: 16px;
             }
 
             .article-detail-meta {
@@ -303,6 +371,22 @@
                 grid-template-columns: 1fr;
             }
 
+            .mask-card {
+                margin-bottom: 16px;
+            }
+
+            .mask-card img {
+                height: 250px;
+            }
+
+            .card-overlay {
+                padding: 16px;
+            }
+
+            .card-overlay h4 {
+                font-size: 18px;
+            }
+
             .article-detail-text {
                 font-size: 16px;
             }
@@ -313,6 +397,25 @@
 
             .article-detail-text h3 {
                 font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mask-card img {
+                height: 200px;
+            }
+
+            .card-overlay {
+                padding: 12px;
+            }
+
+            .card-overlay h4 {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+
+            .card-overlay p {
+                font-size: 12px;
             }
         }
 
@@ -418,44 +521,56 @@
         <!-- 文章头部信息 -->
         <section class="article-detail-header">
             <div class="container">
-                <div class="article-breadcrumb fade-in">
-                    <a href="index.html">首页</a>
-                    <span class="article-breadcrumb-separator">→</span>
-                    <a href="#feed">文章</a>
-                    <span class="article-breadcrumb-separator">→</span>
-                    <span id="categoryBreadcrumb">Graphic Design</span>
-                </div>
+
                 
-                <h1 class="article-detail-title fade-in fade-in-delay-1" id="articleTitle">
-                    Bold typography takes center stage in Studio Makgill's rebrand for cultural venue
-                </h1>
-                
-                <div class="article-detail-meta fade-in fade-in-delay-2">
-                    <div class="article-detail-author">
-                        <div class="author-avatar">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Author">
+                <!-- 左右分栏布局：标题和摘要左，图片右 -->
+                <div class="article-header-grid fade-in fade-in-delay-1">
+                    <div class="article-header-left">
+                        <h1 class="article-detail-title" id="articleTitle">
+                            Bold typography takes center stage in Studio Makgill's rebrand for cultural venue
+                        </h1>
+                        
+                        <div class="article-excerpt" id="articleExcerpt">
+                            <p>格拉斯哥设计工作室Studio Makgill为文化场所创建了一个灵活的识别系统，该系统庆祝场所多样化的节目安排和社区焦点。这个重新设计项目通过大胆的排版和现代的视觉语言，为传统文化场所注入了新的活力。</p>
                         </div>
-                        <div class="author-info">
-                            <span class="author-name" id="authorName">Emma Tucker</span>
-                            <span class="article-detail-date" id="articleDate">2025年1月15日</span>
+                        
+
+                        
+                        <div class="project-info-card">
+                            <h4 class="project-info-title">基本信息</h4>
+                            
+                            <div class="project-info-item">
+                                <div class="project-info-label">地区</div>
+                                <div class="project-info-value">西非</div>
+                            </div>
+                            
+                            <div class="project-info-item">
+                                <div class="project-info-label">部族</div>
+                                <div class="project-info-value">Baoule</div>
+                            </div>
+                            
+                            <div class="project-info-item">
+                                <div class="project-info-label">类别</div>
+                                <div class="project-info-value">面具</div>
+                            </div>
+                            
+                            <div class="project-info-item">
+                                <div class="project-info-label">材质</div>
+                                <div class="project-info-value">木材，天然颜料</div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="article-detail-tags" id="articleTags">
-                        <span class="article-detail-tag">Graphic Design</span>
-                        <span class="article-detail-tag">Typography</span>
-                        <span class="article-detail-tag">Branding</span>
+                    <div class="article-header-right">
+                        <div class="article-detail-hero-image">
+                            <img id="heroImage" src="https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg" alt="Article hero image">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 主图片 -->
-        <section class="article-detail-hero">
-            <div class="article-detail-hero-image fade-in fade-in-delay-3">
-                <img id="heroImage" src="https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg" alt="Article hero image">
-            </div>
-        </section>
+
 
         <!-- 文章内容 -->
         <section class="article-detail-content">
@@ -473,39 +588,44 @@
 
             <!-- 图片画廊 -->
             <div class="article-gallery fade-in fade-in-delay-3">
-                <h3>项目展示</h3>
+                <h3>舞蹈面具</h3>
                 <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1561996333-0327989a9c6c?w=600&h=450&fit=crop" alt="Design detail">
+                    <div class="gallery-item mask-card" onclick="window.location.href='article-detail.html?id=1'">
+                        <img src="https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg" alt="Kple Kple">
+                        <div class="card-overlay">
+                            <h4>Kple Kple</h4>
+                            <p>Baoule传统面具</p>
+                        </div>
                     </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1559028006-44e041f32112?w=600&h=450&fit=crop" alt="Typography detail">
+                    <div class="gallery-item mask-card" onclick="window.location.href='article-detail.html?id=2'">
+                        <img src="https://i.pinimg.com/1200x/94/a3/f1/94a3f14b9b5e8dce4021dd69855158c4.jpg" alt="Goli Glin">
+                        <div class="card-overlay">
+                            <h4>Goli Glin</h4>
+                            <p>仪式表演面具</p>
+                        </div>
                     </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=450&fit=crop" alt="Brand application">
+                    <div class="gallery-item mask-card" onclick="window.location.href='article-detail.html?id=3'">
+                        <img src="https://i.pinimg.com/1200x/50/84/92/5084920569d5b68b2c16860b38ade283.jpg" alt="Kpan Pre">
+                        <div class="card-overlay">
+                            <h4>Kpan Pre</h4>
+                            <p>古代舞蹈传统</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item mask-card" onclick="window.location.href='article-detail.html?id=4'">
+                        <img src="https://i.pinimg.com/1200x/19/b1/55/19b155070168c164ada675d98d1d5437.jpg" alt="Kpan">
+                        <div class="card-overlay">
+                            <h4>Kpan</h4>
+                            <p>传统舞蹈基础</p>
+                        </div>
                     </div>
                 </div>
-                <p class="gallery-caption">重新设计项目在不同媒体中的应用展示</p>
             </div>
 
-            <div class="article-detail-text fade-in fade-in-delay-3">
-                <h2>社区参与的体现</h2>
-                <p>这个重新设计项目不仅仅是一个视觉更新，更是对社区参与的重新定义。通过创建一个开放和包容的视觉语言，该系统为社区成员提供了参与和表达的空间。无论是在线下活动还是在数字平台上，这个视觉系统都能够有效地传达文化场所的核心价值观。</p>
-                
-                <p>项目的成功在于它找到了传统与现代之间的平衡点。既尊重了文化场所的历史传统，又通过现代的设计语言吸引了新一代的观众。这种平衡不仅体现在视觉设计上，更体现在整个品牌的战略思考中。</p>
-            </div>
+
         </section>
     </main>
 
-    <!-- 相关文章推荐 -->
-    <section class="article-detail-footer">
-        <div class="related-articles">
-            <h3>相关文章</h3>
-            <div class="related-grid" id="relatedArticles">
-                <!-- 相关文章将通过JavaScript动态生成 -->
-            </div>
-        </div>
-    </section>
+
 
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
@@ -515,53 +635,7 @@
         </svg>
     </button>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-newsletter">
-                <h3>Subscribe to our newsletter</h3>
-                <p>Get the latest creative inspiration delivered to your inbox</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
-                    <button type="submit" class="newsletter-btn">Subscribe</button>
-                </form>
-            </div>
-            
-            <div class="footer-social">
-                <a href="#" class="social-link" aria-label="Instagram">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="white"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"></line>
-                    </svg>
-                </a>
-                <a href="#" class="social-link" aria-label="Twitter">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                    </svg>
-                </a>
-                <a href="#" class="social-link" aria-label="LinkedIn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-            </div>
-            
-            <div class="footer-links">
-                <a href="#" class="footer-link">About Us</a>
-                <a href="#" class="footer-link">Advertise</a>
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Terms of Service</a>
-                <a href="#" class="footer-link">Contact</a>
-            </div>
-            
-            <div class="footer-copyright">
-                <p>&copy; 2025 Tribal Echo. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+
 
     <script src="script.js"></script>
     <script>
@@ -574,99 +648,147 @@
             // 根据ID加载文章内容
             loadArticleDetail(articleId);
             
-            // 加载相关文章
-            loadRelatedArticles();
+
         });
 
         function loadArticleDetail(articleId) {
             // 完整的文章数据，每篇文章都有独特的内容
             const articles = {
+                'goli-dance-baoule': {
+                    title: 'The Goli dance of the Baoule tribe',
+
+                    category: 'Traditional Dance',
+                    tags: ['Baoule', 'Cultural Heritage', 'Traditional Dance', 'Ivory Coast'],
+                    image: 'https://i.pinimg.com/1200x/62/22/82/622282c260614414841f7d3cea1e5446.jpg',
+                    content: `
+                        <p>The Goli dance represents one of the most significant cultural traditions of the Baoule people, 
+                        an ethnic group primarily found in central Ivory Coast. This ceremonial dance form embodies the 
+                        spiritual connection between the community, their ancestors, and the natural world, serving as 
+                        a living repository of cultural knowledge and values.</p>
+                        
+                        <h2>Historical Origins and Cultural Context</h2>
+                        <p>The origins of the Goli dance trace back centuries, deeply rooted in the Baoule people's 
+                        agricultural society and animist beliefs. Traditionally performed during important agricultural 
+                        ceremonies, harvest celebrations, and spiritual rituals, the dance serves multiple functions 
+                        within the community - from invoking ancestral spirits to ensuring bountiful harvests and 
+                        maintaining social cohesion.</p>
+                        
+                        <blockquote>"The Goli dance is not merely performance; it is the living embodiment of our 
+                        ancestors' wisdom and the spiritual heartbeat of our community." — Baoule Elder</blockquote>
+                        
+                        <h3>The Dance Structure and Symbolism</h3>
+                        <p>The Goli dance follows a complex choreographic structure that mirrors the Baoule understanding 
+                        of the cosmos. Dancers move in intricate patterns that represent the cyclical nature of life, 
+                        death, and rebirth. Each movement carries specific symbolic meaning - from planting gestures 
+                        that honor agricultural cycles to sweeping motions that represent spiritual cleansing and renewal.</p>
+                        
+                        <h2>Musical Accompaniment and Rhythmic Patterns</h2>
+                        <p>The musical foundation of the Goli dance is provided by traditional drums, including the 
+                        djembe, dunun, and talking drums. These instruments create polyrhythmic patterns that guide 
+                        the dancers' movements and facilitate trance-like states essential for spiritual connection. 
+                        The complex interlocking rhythms reflect the Baoule philosophy of interconnectedness and community harmony.</p>
+                        
+                        <h2>Costumes and Visual Symbolism</h2>
+                        <p>Traditional Goli dance costumes are rich in symbolic meaning, featuring specific colors, 
+                        patterns, and materials that represent different aspects of Baoule cosmology. Masks worn during 
+                        certain performances represent spiritual entities, while flowing garments symbolize the connection 
+                        between the earthly and spiritual realms. These visual elements transform the performers into 
+                        mediators between the physical and spiritual worlds.</p>
+                        
+                        <h2>Contemporary Significance and Preservation Efforts</h2>
+                        <p>In modern times, the Goli dance faces challenges from urbanization, cultural assimilation, 
+                        and changing social structures. However, dedicated cultural preservation efforts are underway 
+                        to document, teach, and revitalize this important tradition. Cultural centers, educational programs, 
+                        and community initiatives work to ensure that the Goli dance continues to thrive as a living cultural 
+                        practice rather than becoming merely a museum artifact.</p>
+                        
+                        <h3>Global Recognition and Cultural Exchange</h3>
+                        <p>The artistic and cultural value of the Goli dance has gained international recognition, 
+                        with performances at cultural festivals worldwide and UNESCO recognition of its cultural significance. 
+                        This global attention has created opportunities for cultural exchange while also raising awareness 
+                        about the importance of preserving indigenous cultural traditions in an increasingly globalized world.</p>
+                    `
+                },
                 '1': {
-                    title: 'Bold typography takes center stage in Studio Makgill\'s rebrand for cultural venue',
-                    author: 'Emma Tucker',
-                    date: '2025年1月15日',
-                    category: 'Graphic Design',
-                    tags: ['Graphic Design', 'Typography', 'Branding'],
+                    title: 'Kple Kple',
+
+                    category: 'Mask',
+                    tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg',
                     content: `
-                        <p>格拉斯哥设计工作室Studio Makgill为文化场所创建了一个灵活的识别系统，该系统庆祝场所多样化的节目安排和社区焦点。这个重新设计项目通过大胆的排版和现代的视觉语言，为传统文化场所注入了新的活力。</p>
+                        <h2>面具特征</h2>
+                        <p>男性佩戴红色、女性佩戴黑色，强调男女之间的相互关系。它象征着年轻，脸部呈圆形，象征月亮，眼睛和嘴巴为浮雕，面具上方为两个公羊角。</p>
                         
-                        <h2>设计理念的革新</h2>
-                        <p>这个重新设计项目的核心理念是创造一个能够适应不同文化活动的视觉系统。通过灵活的排版方案和可变的设计元素，该系统能够根据不同活动的特点进行调整，同时保持整体品牌的一致性。</p>
+                        <h2>使用场景</h2>
+                        <p>goli舞会使用的面具之一。goli面具舞既可用于娱乐，也可用于重要人物的葬礼。该对面具用于祭祀水牛神goli，葬礼、丰收节和贵宾来访等重要仪式，是部落仪式中青年佩戴的，与部落保护神有关。在祭祀中第一个出场。佩戴"kple kple"面具的男孩身着网状服装和兽皮披风，被认为是初级面具，也是戈利舞面具中地位最低的一种。在仪式中，随后会依次出现地位更高的男女面具，最终以地位更高的女性面具"克潘"（kpan）达到顶峰。</p>
                         
-                        <blockquote>"我们的目标是创造一个既能够反映文化场所多样性，又能够传达其核心价值的视觉识别系统。" — Studio Makgill设计总监</blockquote>
+                        <h2>文化意义</h2>
+                        <p>Kple Kple面具在戈利舞仪式中扮演着重要的角色，不仅是装饰品，更是精神世界的媒介。它连接了现实与精神世界，传递着巴乌勒族人对自然、祖先和社区的理解。这种面具体现了年轻一代的地位和成长过程，是部落社会结构的重要组成部分。</p>
                         
-                        <h3>字体设计的重要性</h3>
-                        <p>在这个项目中，字体设计扮演了核心角色。工作室选择了一种既有历史底蕴又具有现代感的字体，通过不同的字重和尺寸变化，创造出层次丰富的视觉效果。这种设计不仅提升了可读性，还为品牌增添了独特的个性。</p>
-                        
-                        <h2>社区参与的价值</h2>
-                        <p>这个重新设计不仅仅是一个视觉更新，更是对社区参与方式的重新思考。通过创建一个开放和包容的视觉语言，该系统为社区成员提供了参与和表达的空间。无论是在线下活动还是在数字平台上，这个视觉系统都能够有效地传达文化场所的核心价值观。</p>
+                        <h2>工艺特点</h2>
+                        <p>Kple Kple面具的制作工艺精湛，通常使用木材雕刻，配以天然的颜料。面具上的每一个细节都具有象征意义，从颜色到形状都承载着深厚的文化内涵。这种传统工艺的传承确保了文化知识的延续性。</p>
                     `
                 },
                 '2': {
-                    title: 'Capturing the essence of urban life through intimate street photography',
-                    author: 'James Wilson',
-                    date: '2025年1月14日',
-                    category: 'Photography',
-                    tags: ['Photography', 'Urban', 'Street Art'],
+                    title: 'Goli Glin',
+
+                    category: 'Mask',
+                    tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/1200x/94/a3/f1/94a3f14b9b5e8dce4021dd69855158c4.jpg',
                     content: `
-                        <p>一场新的展览展示了来自世界各地的城市瞬间照片，突出了日常互动中的美感。这个摄影项目通过镜头捕捉了城市生活的真实面貌，展现了我们日常生活中的诗意瞬间。</p>
+                        <p>Goli Glin展示了传统仪式表演中动作与音乐的和谐融合。这种舞蹈形式通过精美的编排和深刻的寓意，展现了文化传承的精髓。</p>
                         
-                        <h2>城市摄影的艺术</h2>
-                        <p>城市摄影不仅仅是记录建筑和街道，更是捕捉人与环境的互动关系。每一张照片都讲述着一个独特的故事，反映了现代都市生活的复杂性和多样性。</p>
+                        <h2>仪式性舞蹈的特点</h2>
+                        <p>Goli Glin是一种具有强烈仪式感的舞蹈形式，每一个动作都承载着特定的文化含义。在重要场合中，这种舞蹈不仅是一种表演，更是一种精神的寄托。</p>
                         
-                        <h3>技术与情感的结合</h3>
-                        <p>通过精湛的摄影技巧和对人性的深刻理解，这些作品展现了城市生活中最真实、最感人的瞬间。摄影师们用镜头语言诠释了城市生活的多重意义。</p>
+                        <h3>音乐与舞蹈的对话</h3>
+                        <p>在Goli Glin中，音乐和舞蹈形成了完美的对话关系。鼓点、歌声和身体动作相互呼应，创造出强烈的艺术感染力。</p>
                         
-                        <h2>全球城市的对话</h2>
-                        <p>这个展览汇集了来自纽约、东京、伦敦、巴黎等国际大都市的作品，通过不同文化背景的摄影师视角，展现了城市生活的共性与个性。尽管地理位置和文化背景不同，但城市中的人们都面临着相似的挑战和机遇，都在寻找属于自己的生活方式。</p>
+                        <h2>文化传承的意义</h2>
+                        <p>这种舞蹈形式承载着深厚的历史文化内涵，通过代代相传的表演传统，将重要的文化价值观传递给下一代。每一次表演都是对文化根源的重新诠释。</p>
                     `
                 },
                 '3': {
-                    title: 'Vibrant illustrations bring children\'s book to life with magical detail',
-                    author: 'Sophie Chen',
-                    date: '2025年1月13日',
-                    category: 'Illustration',
-                    tags: ['Illustration', 'Children\'s Books', 'Digital Art'],
+                    title: 'Kpan Pre',
+
+                    category: 'Mask',
+                    tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/1200x/50/84/92/5084920569d5b68b2c16860b38ade283.jpg',
                     content: `
-                        <p>一位获奖插画家讨论了她为儿童读物创造迷人世界的过程，这些作品通过神奇的细节吸引年轻读者。这个项目展示了传统绘画技巧与数字技术的完美结合。</p>
+                        <p>Kpan Pre体现了古代舞蹈传统的节奏复杂性和艺术表现力。这种舞蹈形式通过多层次的节奏和富有表现力的动作，展现了文化的深厚底蕴。</p>
                         
-                        <h2>创意灵感的来源</h2>
-                        <p>这个儿童读物的灵感来源于插画家童年时期的记忆和对自然世界的观察。每一个角色都融合了现实与想象，创造出既熟悉又奇妙的视觉体验。通过丰富的色彩和细腻的纹理，这些插画为读者打开了通往奇幻世界的大门。</p>
+                        <h2>节奏的复杂性</h2>
+                        <p>Kpan Pre以其复杂的节奏结构而闻名，多个节奏层次交织在一起，创造出丰富多变的音乐效果。舞者需要精准地掌握这些节奏变化，才能完美地表达舞蹈的内涵。</p>
                         
-                        <h3>技术实现的挑战</h3>
-                        <p>在创作过程中，插画家面临着将复杂情感转化为视觉语言的技术挑战。通过不断尝试不同的绘画技法和数字工具，最终找到了既保持传统手绘温度又能充分利用数字优势的创作方法。</p>
+                        <h3>艺术表现的深度</h3>
+                        <p>这种舞蹈不仅考验技术能力，更要求舞者有深厚的艺术修养。每一个动作都需要准确传达特定的情感和意义，体现了舞蹈艺术的深刻内涵。</p>
                         
-                        <h2>与读者情感的连接</h2>
-                        <p>儿童读物不仅是娱乐工具，更是情感教育的载体。通过精心设计的故事情节和视觉元素，这本书帮助孩子们理解友情、勇气、成长等重要主题。每一个细节都经过深思熟虑，确保能够与不同年龄段的孩子产生共鸣。</p>
+                        <h2>传统的现代诠释</h2>
+                        <p>虽然Kpan Pre是古老的舞蹈传统，但现代艺术家们不断为它注入新的活力。通过当代的演绎方式，这种传统舞蹈形式焕发出新的生命力，吸引着新一代观众的喜爱。</p>
                     `
                 },
                 '4': {
-                    title: 'Exploring the boundaries between digital and physical in contemporary sculpture',
-                    author: 'Michael Brown',
-                    date: '2025年1月12日',
-                    category: 'Art',
-                    tags: ['Sculpture', 'Digital Art', '3D Printing'],
+                    title: 'Kpan',
+
+                    category: 'Mask',
+                    tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/1200x/19/b1/55/19b155070168c164ada675d98d1d5437.jpg',
                     content: `
-                        <p>一位新兴艺术家将3D打印技术与传统技法相结合，质疑我们与科技的关系。这个雕塑项目探索了数字时代艺术的边界，通过实体作品展现了虚拟与现实的交融。</p>
+                        <p>Kpan代表了传统舞蹈的基础元素，通过纯粹的动作和文化叙事展现了舞蹈的根源。这种舞蹈形式是理解更复杂舞蹈传统的基础。</p>
                         
-                        <h2>创作哲学</h2>
-                        <p>这个项目的核心问题是：在数字时代，什么是"真实"？艺术家通过将数字代码转化为物理实体，挑战了观众对现实和虚拟界限的认知。每一个雕塑都是数字算法与手工技艺的对话产物。</p>
+                        <h2>基础动作的重要性</h2>
+                        <p>Kpan作为基础舞蹈形式，包含了传统舞蹈中的核心动作元素。通过掌握这些基础动作，舞者能够为学习更复杂的舞蹈形式打下坚实的基础。</p>
                         
-                        <h3>技术创新与传统工艺</h3>
-                        <p>创作过程中，艺术家首先通过编程生成基础形态，然后使用传统材料进行手工修饰和完善。这种方法不仅保留了数字创作的精确性，还融入了手工制作的不可预测性和人情味。</p>
+                        <h3>文化叙事的功能</h3>
+                        <p>在Kpan舞蹈中，每一个动作都承载着特定的文化叙事。通过身体语言，舞者讲述着传统故事，传承着文化记忆，连接着过去与现在。</p>
                         
-                        <h2>社会反思的意义</h2>
-                        <p>这个雕塑系列不仅仅是对技术美学的探索，更是对现代社会过度依赖技术的深刻反思。通过展示数字与物理的融合，艺术家邀请观众思考如何在保持人文关怀的同时拥抱技术进步。</p>
+                        <h2>纯粹性的美学价值</h2>
+                        <p>Kpan以其动作的纯粹性和简约性而著称。没有复杂的装饰和夸张的动作，这种舞蹈形式通过最基本的表现方式传达着深刻的情感和意义。</p>
                     `
                 },
                 '5': {
                     title: 'Minimalist packaging design wins international award for sustainability',
-                    author: 'Rachel Green',
-                    date: '2025年1月11日',
+
                     category: 'Graphic Design',
                     tags: ['Packaging Design', 'Sustainability', 'Minimalism'],
                     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop',
@@ -685,8 +807,7 @@
                 },
                 '6': {
                     title: 'Documenting endangered cultures before they disappear',
-                    author: 'David Martinez',
-                    date: '2025年1月10日',
+
                     category: 'Photography',
                     tags: ['Documentary Photography', 'Cultural Heritage', 'Anthropology'],
                     image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&h=500&fit=crop',
@@ -709,53 +830,14 @@
             
             // 更新页面内容
             document.getElementById('articleTitle').textContent = article.title;
-            document.getElementById('authorName').textContent = article.author;
-            document.getElementById('articleDate').textContent = article.date;
-            document.getElementById('categoryBreadcrumb').textContent = article.category;
             document.getElementById('heroImage').src = article.image;
             
-            // 更新标签
-            const tagsContainer = document.getElementById('articleTags');
-            tagsContainer.innerHTML = article.tags.map(tag => 
-                `<span class="article-detail-tag">${tag}</span>`
-            ).join('');
-            
+
             // 更新文章内容
             document.getElementById('articleContent').innerHTML = article.content;
         }
 
-        function loadRelatedArticles() {
-            const relatedArticles = [
-                {
-                    title: 'Vibrant illustrations bring children\'s book to life with magical detail',
-                    meta: 'Illustration • Sophie Chen',
-                    image: 'https://i.pinimg.com/1200x/50/84/92/5084920569d5b68b2c16860b38ade283.jpg'
-                },
-                {
-                    title: 'Exploring the boundaries between digital and physical in contemporary sculpture',
-                    meta: 'Art • Michael Brown',
-                    image: 'https://i.pinimg.com/1200x/19/b1/55/19b155070168c164ada675d98d1d5437.jpg'
-                },
-                {
-                    title: 'Documenting endangered cultures before they disappear',
-                    meta: 'Photography • David Martinez',
-                    image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&h=450&fit=crop'
-                }
-            ];
 
-            const relatedContainer = document.getElementById('relatedArticles');
-            relatedContainer.innerHTML = relatedArticles.map(article => `
-                <div class="related-card" onclick="window.location.href='article-detail.html?id=${Math.random()}';">
-                    <div class="related-image">
-                        <img src="${article.image}" alt="${article.title}">
-                    </div>
-                    <div class="related-content">
-                        <h4 class="related-title">${article.title}</h4>
-                        <p class="related-meta">${article.meta}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
     </script>
     
     <!-- Coze 智能体 SDK（会话隔离版本） -->

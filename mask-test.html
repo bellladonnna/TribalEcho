@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面具之魂：探寻你的非洲部落化身</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部横幅区域 -->
+    <section class="top-banner">
+        <div class="banner-item">
+            <span class="banner-label">THE GLOBAL SOUTH</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">TRIBES AND MASKS</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">AFRICAN INSTRUMENTS</span>
+        </div>
+        <div class="banner-item">
+            <span class="banner-label">THE SOUL OF THE MASKS</span>
+        </div>
+    </section>
+
+    <!-- 顶部导航栏 -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+            
+            <div class="logo">
+                <a href="index.html" class="logo-link">Tribal Echo</a>
+            </div>
+            
+            <div class="header-actions">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 下拉菜单 -->
+    <nav class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-menu-content">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">Projects + Creatives</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#insights" class="nav-link">Insights + Opinion</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#resources" class="nav-link">Resources + Advice</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#culture" class="nav-link">Culture + Lifestyle</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 下拉菜单遮罩 -->
+    <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+    <!-- 搜索面板 -->
+    <div class="search-panel" id="searchPanel">
+        <div class="search-panel-container">
+            <input type="text" class="search-input" placeholder="Search for articles, projects, creatives..." autofocus>
+            <button class="search-close" id="searchClose" aria-label="Close search">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- 主内容区 - 测试游戏 -->
+    <main class="main-content">
+        <section class="game-container">
+            <!-- 游戏开始界面 -->
+            <div id="gameStart" class="game-screen active">
+                <div class="game-header">
+                    <h1 class="game-title">面具之魂</h1>
+                    <p class="game-subtitle">探寻你的非洲部落化身</p>
+                </div>
+                
+                <div class="game-intro">
+                    <p class="intro-text">
+                        在广袤的非洲大陆，每一个面具都是一个灵魂，一种力量，一段故事。
+                        它们不仅是艺术品，更是连接祖先、自然与社区的桥梁。
+                    </p>
+                    <p class="intro-text">
+                        揭开你内心深处的部落之魂，看看你与哪个非洲部落的精神特质最为契合。
+                        让古老的心灵智慧指引你，请在题目中选出你的第一反应。
+                    </p>
+                </div>
+                
+
+                
+                <button id="startTestBtn" class="btn-game-start">开始测试</button>
+            </div>
+
+            <!-- 测试问题界面 -->
+            <div id="gameQuestions" class="game-screen">
+                <div class="question-header">
+                    <div class="question-progress">
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <span id="questionNumber">1/8</span>
+                    </div>
+                </div>
+                
+                <div class="question-carousel" id="questionCarousel">
+                    <div class="question-slider" id="questionSlider">
+                        <!-- 问题卡片将通过JavaScript动态生成 -->
+                    </div>
+                    <div class="swipe-hint">← 滑动切换 →</div>
+                </div>
+                
+                <div class="question-indicators" id="questionIndicators">
+                    <!-- 指示器将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 结果展示界面 -->
+            <div id="gameResult" class="game-screen">
+                <div class="result-container">
+                    <h2 class="result-title">你的部落面具化身</h2>
+                    <div class="result-mask">
+                        <img id="resultMaskImage" src="" alt="部落面具" class="result-mask-image">
+                    </div>
+                    <h3 id="resultMaskName" class="result-mask-name"></h3>
+                    <div id="resultMaskTribe" class="result-mask-tribe"></div>
+                    
+                    <div class="result-description">
+                        <p id="resultDescription" class="result-text"></p>
+                    </div>
+                    
+                    <div class="result-traits">
+                        <h4>你的性格特质：</h4>
+                        <div id="resultTraits" class="traits-list">
+                            <!-- 特质标签将通过JavaScript生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button id="retakeTestBtn" class="btn-secondary">重新测试</button>
+                        <button id="shareResultBtn" class="btn-primary">分享结果</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script src="script.js"></script>
+    <script src="mask-test.js"></script>
+</body>
+</html>

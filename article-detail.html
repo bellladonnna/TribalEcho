@@ -443,16 +443,16 @@
     <!-- 顶部横幅区域 -->
     <section class="top-banner">
         <div class="banner-item">
-            <span class="banner-label">NICER TUESDAYS</span>
+            <span class="banner-label">THE GLOBAL SOUTH</span>
         </div>
         <div class="banner-item">
-            <span class="banner-label">NICE LIST</span>
+            <span class="banner-label">TRIBES AND MASKS</span>
         </div>
         <div class="banner-item">
-            <span class="banner-label">ONES TO WATCH</span>
+            <span class="banner-label">AFRICAN INSTRUMENTS</span>
         </div>
         <div class="banner-item">
-            <span class="banner-label">INSIGHTS</span>
+            <span class="banner-label">THE SOUL OF THE MASK</span>
         </div>
     </section>
 
@@ -485,16 +485,16 @@
         <div class="dropdown-menu-content">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects + Creatives</a>
+                    <a href="#global-south" class="nav-link">The Global South</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#insights" class="nav-link">Insights + Opinion</a>
+                    <a href="#tribes-masks" class="nav-link">Tribes And Masks</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#resources" class="nav-link">Resources + Advice</a>
+                    <a href="#african-instruments" class="nav-link">African Instruments</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#culture" class="nav-link">Culture + Lifestyle</a>
+                    <a href="#soul-mask" class="nav-link">The Soul Of The Mask</a>
                 </li>
             </ul>
         </div>
@@ -531,7 +531,7 @@
                         </h1>
                         
                         <div class="article-excerpt" id="articleExcerpt">
-                            <p>格拉斯哥设计工作室Studio Makgill为文化场所创建了一个灵活的识别系统，该系统庆祝场所多样化的节目安排和社区焦点。这个重新设计项目通过大胆的排版和现代的视觉语言，为传统文化场所注入了新的活力。</p>
+                            <p>Kple Kple面具在goli舞会中第一个出场，是由青年佩戴的，与部落保护神有关。脸部呈圆形，象征月亮，眼睛和嘴巴为浮雕，面具上方为两个公羊角。</p>
                         </div>
                         
 
@@ -645,11 +645,12 @@
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
             
-            // 根据ID加载文章内容
-            loadArticleDetail(articleId);
-            
+        // 根据ID加载文章内容
+        loadArticleDetail(articleId);
+        // 更新页面摘要
+        updateArticleExcerpt(articleId);
 
-        });
+    });
 
         function loadArticleDetail(articleId) {
             // 完整的文章数据，每篇文章都有独特的内容
@@ -717,7 +718,7 @@
                     image: 'https://i.pinimg.com/736x/28/28/df/2828df24c3812ce706dc972e9ea564c0.jpg',
                     content: `
                         <h2>面具特征</h2>
-                        <p>男性佩戴红色、女性佩戴黑色，强调男女之间的相互关系。它象征着年轻，脸部呈圆形，象征月亮，眼睛和嘴巴为浮雕，面具上方为两个公羊角。</p>
+                        <p>Kple Kple面具在goli舞会中第一个出场，是由青年佩戴的，与部落保护神有关。脸部呈圆形，象征月亮，眼睛和嘴巴为浮雕，面具上方为两个公羊角。</p>
                         
                         <h2>使用场景</h2>
                         <p>goli舞会使用的面具之一。goli面具舞既可用于娱乐，也可用于重要人物的葬礼。该对面具用于祭祀水牛神goli，葬礼、丰收节和贵宾来访等重要仪式，是部落仪式中青年佩戴的，与部落保护神有关。在祭祀中第一个出场。佩戴"kple kple"面具的男孩身着网状服装和兽皮披风，被认为是初级面具，也是戈利舞面具中地位最低的一种。在仪式中，随后会依次出现地位更高的男女面具，最终以地位更高的女性面具"克潘"（kpan）达到顶峰。</p>
@@ -736,16 +737,17 @@
                     tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/1200x/94/a3/f1/94a3f14b9b5e8dce4021dd69855158c4.jpg',
                     content: `
-                        <p>Goli Glin展示了传统仪式表演中动作与音乐的和谐融合。这种舞蹈形式通过精美的编排和深刻的寓意，展现了文化传承的精髓。</p>
+                        <h2>面具特征</h2>
+                        <p>Goli Glin面具为动物头盔，在goli舞会中第二个出场，由男性佩戴，面具融合了灌木牛、羚羊和鳄鱼的形象，象征力量、amwim丛林精灵和森林水牛。</p>
                         
-                        <h2>仪式性舞蹈的特点</h2>
-                        <p>Goli Glin是一种具有强烈仪式感的舞蹈形式，每一个动作都承载着特定的文化含义。在重要场合中，这种舞蹈不仅是一种表演，更是一种精神的寄托。</p>
+                        <h2>使用场景</h2>
+                        <p>Goli Glin作为第二个出场的面具，在goli舞会中扮演着承上启下的重要角色。佩戴此面具的舞者通常身着特定的服装，通过模仿动物的动作和声音，展现自然界与精神世界的连接。</p>
                         
-                        <h3>音乐与舞蹈的对话</h3>
-                        <p>在Goli Glin中，音乐和舞蹈形成了完美的对话关系。鼓点、歌声和身体动作相互呼应，创造出强烈的艺术感染力。</p>
+                        <h2>文化意义</h2>
+                        <p>动物形象的选择体现了巴乌勒族人对自然的敬畏和理解。灌木牛、羚羊和鳄鱼分别象征着不同的精神特质：力量、敏捷和适应能力。这种面具在仪式中帮助社区成员与自然精灵建立联系。</p>
                         
-                        <h2>文化传承的意义</h2>
-                        <p>这种舞蹈形式承载着深厚的历史文化内涵，通过代代相传的表演传统，将重要的文化价值观传递给下一代。每一次表演都是对文化根源的重新诠释。</p>
+                        <h2>工艺特点</h2>
+                        <p>Goli Glin面具的制作工艺复杂，需要雕刻师对不同动物的形态特征有深入的了解。面具通过夸张的造型和精细的雕刻，将多种动物的特征融合成一个和谐的整体。</p>
                     `
                 },
                 '3': {
@@ -755,16 +757,17 @@
                     tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/1200x/50/84/92/5084920569d5b68b2c16860b38ade283.jpg',
                     content: `
-                        <p>Kpan Pre体现了古代舞蹈传统的节奏复杂性和艺术表现力。这种舞蹈形式通过多层次的节奏和富有表现力的动作，展现了文化的深厚底蕴。</p>
+                        <h2>面具特征</h2>
+                        <p>Kpan Pre面具代表的是女性，在goli舞会中第三个出场，面具周围环绕扁平锯齿状的圆盘状胡须，头顶是一对巨大的角以及牛耳。</p>
                         
-                        <h2>节奏的复杂性</h2>
-                        <p>Kpan Pre以其复杂的节奏结构而闻名，多个节奏层次交织在一起，创造出丰富多变的音乐效果。舞者需要精准地掌握这些节奏变化，才能完美地表达舞蹈的内涵。</p>
+                        <h2>使用场景</h2>
+                        <p>作为第三个出场的面具，Kpan Pre在goli舞会中标志着仪式进入更深入的阶段。这个面具通常由男性佩戴，但代表女性的精神特质，体现了巴乌勒文化中性别平衡和互补的理念。</p>
                         
-                        <h3>艺术表现的深度</h3>
-                        <p>这种舞蹈不仅考验技术能力，更要求舞者有深厚的艺术修养。每一个动作都需要准确传达特定的情感和意义，体现了舞蹈艺术的深刻内涵。</p>
+                        <h2>文化意义</h2>
+                        <p>锯齿状的胡须象征着保护力和威严，巨大的角代表着精神力量。这种面具在仪式中扮演着守护者的角色，既保护参与者免受邪恶力量的侵害，又引导他们进入更深层的精神体验。</p>
                         
-                        <h2>传统的现代诠释</h2>
-                        <p>虽然Kpan Pre是古老的舞蹈传统，但现代艺术家们不断为它注入新的活力。通过当代的演绎方式，这种传统舞蹈形式焕发出新的生命力，吸引着新一代观众的喜爱。</p>
+                        <h2>工艺特点</h2>
+                        <p>Kpan Pre面具的制作需要高超的技艺，特别是在处理胡须部分的锯齿状细节时。面具的每一个元素都经过精心设计和雕刻，确保在舞蹈中能够产生最佳的视觉效果。</p>
                     `
                 },
                 '4': {
@@ -774,16 +777,17 @@
                     tags: ['科特迪瓦', 'Baoule', '面具'],
                     image: 'https://i.pinimg.com/1200x/19/b1/55/19b155070168c164ada675d98d1d5437.jpg',
                     content: `
-                        <p>Kpan代表了传统舞蹈的基础元素，通过纯粹的动作和文化叙事展现了舞蹈的根源。这种舞蹈形式是理解更复杂舞蹈传统的基础。</p>
+                        <h2>面具特征</h2>
+                        <p>面具代表着年长的女性，是goli舞会的最后环节，椭圆脸，圆额头，拱形的眉毛，厚重的眼睑，眼睛几乎闭着，一个细长的鼻子在张开的嘴巴上露出牙齿。</p>
                         
-                        <h2>基础动作的重要性</h2>
-                        <p>Kpan作为基础舞蹈形式，包含了传统舞蹈中的核心动作元素。通过掌握这些基础动作，舞者能够为学习更复杂的舞蹈形式打下坚实的基础。</p>
+                        <h2>使用场景</h2>
+                        <p>作为goli舞会的最后一个面具，Kpan标志着整个仪式的高潮和结束。这个面具通常由最具经验的舞者佩戴，代表着智慧和权威。在仪式中，它的出场宣告着整个goli舞会的圆满完成。</p>
                         
-                        <h3>文化叙事的功能</h3>
-                        <p>在Kpan舞蹈中，每一个动作都承载着特定的文化叙事。通过身体语言，舞者讲述着传统故事，传承着文化记忆，连接着过去与现在。</p>
+                        <h2>文化意义</h2>
+                        <p>Kpan面具象征着祖母般的智慧和长者的权威。几乎闭合的眼睛代表着内省和深层的精神洞察，张开的嘴巴则象征着知识的传承和教导。这个面具在巴乌勒社会中代表着女性智慧的结晶。</p>
                         
-                        <h2>纯粹性的美学价值</h2>
-                        <p>Kpan以其动作的纯粹性和简约性而著称。没有复杂的装饰和夸张的动作，这种舞蹈形式通过最基本的表现方式传达着深刻的情感和意义。</p>
+                        <h2>工艺特点</h2>
+                        <p>Kpan面具的制作体现了最高超的雕刻技艺。雕刻师需要通过精细的面部表情刻画来传达年长女性的威严和智慧。每一个细节都经过深思熟虑，确保面具能够准确传达其深层的文化含义。</p>
                     `
                 },
                 '5': {
@@ -805,23 +809,80 @@
                         <p>这个获奖项目已经开始影响整个包装设计行业。越来越多的品牌开始关注可持续性，重新审视自己的包装策略。这不仅是一个设计成功案例，更是推动行业向更环保方向发展的催化剂。</p>
                     `
                 },
-                '6': {
-                    title: 'Documenting endangered cultures before they disappear',
-
-                    category: 'Photography',
-                    tags: ['Documentary Photography', 'Cultural Heritage', 'Anthropology'],
-                    image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&h=500&fit=crop',
+                '5': {
+                    title: 'Mwana Pwo',
+                    category: 'Mask',
+                    tags: ['Chokwe', 'Angola', '女性面具'],
+                    image: 'https://i.pinimg.com/736x/4d/f3/ca/4df3ca960b8f4616acdc9eb4c2b8215f.jpg',
                     content: `
-                        <p>一位摄影记者用十年时间记录了受现代化威胁的传统生活方式。这个纪录片摄影项目致力于保存濒危文化的视觉档案，为后代留下珍贵的人类文化遗产。</p>
+                        <h2>面具特征</h2>
+                        <p>Mwana Pwo面具代表年轻的女性形象，体现了Chokwe文化中对女性美丽和理想的象征。面具特征包括精致的发型、细长的眼睛和优雅的面部轮廓。</p>
                         
-                        <h2>十年记录的旅程</h2>
-                        <p>从亚马逊雨林到喜马拉雅山脉，摄影师跨越了五大洲，记录了50多个濒临消失的文化群体。每一个画面都承载着一个民族的记忆，每一个故事都是人类多样性的见证。</p>
+                        <h2>使用场景</h2>
+                        <p>Mwana Pwo面具通常在重要的仪式和庆典中使用，特别是在庆祝青春、美丽和生育的场合。佩戴者通常经过专门的训练，通过优雅的舞姿展现女性的魅力。</p>
                         
-                        <h3>技术挑战与人文关怀</h3>
-                        <p>在偏远地区的拍摄过程中，摄影师面临着恶劣的自然环境和复杂的沟通挑战。但更重要的是如何在记录的同时尊重当地文化，避免将拍摄对象客体化。通过长期居住和深入交流，摄影师建立起了基于信任的合作关系。</p>
+                        <h2>文化意义</h2>
+                        <p>这个面具体现了Chokwe文化中女性理想化的美的标准，代表着年轻一代的希望和活力。它是社会教育年轻女性关于美德、优雅和责任的重要工具。</p>
                         
-                        <h2>紧迫的文化危机</h2>
-                        <p>全球化和现代化进程正在以前所未有的速度改变着传统文化。许多语言、习俗、技艺都面临着消失的危险。这个项目不仅是艺术创作，更是一场与文化消失赛跑的紧急行动，呼吁社会对文化多样性保护的重视。</p>
+                        <h2>工艺特点</h2>
+                        <p>Mwana Pwo面具的制作特别注重面部的细节雕刻，尤其是发型和眼睛的处理。面具表面通常经过精细的打磨和装饰，体现女性的精致和优雅。</p>
+                    `
+                },
+                '6': {
+                    title: 'Pwo',
+                    category: 'Mask',
+                    tags: ['Chokwe', '安哥拉', '仪式面具'],
+                    image: 'https://art-africain-traditionnel.com/14063-large_default/chokwe-pwo-mask.jpg',
+                    content: `
+                        <h2>面具特征</h2>
+                        <p>Pwo面具是Chokwe文化中重要的女性面具，象征着成熟女性的智慧和美德。面具设计强调女性的美丽和社会地位，在重要仪式中使用。</p>
+                        
+                        <h2>使用场景</h2>
+                        <p>Pwo面具在重要的社会仪式和庆典中使用，特别是在涉及社会秩序、婚姻和成年礼的场合。它是Chokwe社会中女性权力和地位的象征。</p>
+                        
+                        <h2>文化意义</h2>
+                        <p>Pwo面具体现了Chokwe文化中对成熟女性智慧和美德的尊重。它不仅是艺术作品，更是文化传承和社会教化的重要媒介，教导年轻女性关于社会责任和家庭价值观。</p>
+                        
+                        <h2>工艺特点</h2>
+                        <p>Pwo面具的制作工艺精湛，面部特征的处理更加成熟和稳重。面具经常装饰有象征性的图案和符号，代表女性的社会角色和精神特质。</p>
+                    `
+                },
+                '7': {
+                    title: 'Cihongo',
+                    category: 'Mask',
+                    tags: ['Chokwe', '雕像', '神圣面具'],
+                    image: 'https://i.pinimg.com/1200x/91/ea/a5/91eaa5401e5d2e91a54fe5e6e00deb4a.jpg',
+                    content: `
+                        <h2>面具特征</h2>
+                        <p>Cihongo面具是Chokwe文化中的男性面具，代表权力、权威和财富。面具特征包括大眼睛、宽鼻和装饰性的胡须，象征男性的力量和社会地位。</p>
+                        
+                        <h2>使用场景</h2>
+                        <p>Cihongo面具在重要的政治仪式、法官裁决和战士仪式中使用。它通常由社会中的男性领袖佩戴，象征着公正和权威。</p>
+                        
+                        <h2>文化意义</h2>
+                        <p>Cihongo面具体现了Chokwe文化中男性理想化的品质：勇敢、智慧和领导力。它是社会秩序和正义的重要象征，帮助维护社区的法律和传统。</p>
+                        
+                        <h2>工艺特点</h2>
+                        <p>Cihongo面具的制作强调威严和力量感，通常比其他面具更大更厚重。胡须和装饰性元素的处理特别讲究，体现男性的威严和地位。</p>
+                    `
+                },
+                '9': {
+                    title: 'Sowei Mask',
+                    category: 'Mask',
+                    tags: ['Mende', '塞拉利昂', '女性面具'],
+                    image: 'https://i.pinimg.com/1200x/6f/ef/3a/6fef3abf74d1e66f1ed5b163aa03de51.jpg',
+                    content: `
+                        <h2>面具特征</h2>
+                        <p>Sowei面具是Mende文化中最神圣的面具之一，由Sande社会在女性成年仪式中使用。面具特征包括光滑的皮肤、小嘴巴和环形的颈部，代表女性的美丽和纯洁。</p>
+                        
+                        <h2>使用场景</h2>
+                        <p>Sowei面具只在Sande社会的仪式中使用，特别是在女孩向成年女性过渡的成年仪式上。这是Mende文化中女性专属的神秘仪式的一部分。</p>
+                        
+                        <h2>文化意义</h2>
+                        <p>作为女性社会的重要象征，Sowei面具体现了Mende文化中对女性纯洁、智慧和力量的重视。它是女性团结和社会传承的重要载体。</p>
+                        
+                        <h2>工艺特点</h2>
+                        <p>Sowei面具的制作追求完美的光滑和对称，象征着理想化的女性美。环形颈部的设计是Mende面具最显著的特征之一，代表财富和健康。</p>
                     `
                 }
             };
@@ -835,6 +896,28 @@
 
             // 更新文章内容
             document.getElementById('articleContent').innerHTML = article.content;
+        }
+
+        function updateArticleExcerpt(articleId) {
+            // 从script.js中获取对应的卡片excerpt内容
+            const excerpts = {
+                '1': 'Kple Kple面具在goli舞会中第一个出场，是由青年佩戴的，与部落保护神有关。脸部呈圆形，象征月亮，眼睛和嘴巴为浮雕，面具上方为两个公羊角。',
+                '2': 'Goli Glin面具为动物头盔，在goli舞会中第二个出场，由男性佩戴，面具融合了灌木牛、羚羊和鳄鱼的形象，象征力量、amwim丛林精灵和森林水牛。',
+                '3': 'Kpan Pre面具代表的是女性，在goli舞会中第三个出场，面具周围环绕扁平锯齿状的圆盘状胡须，头顶是一对巨大的角以及牛耳。',
+                '4': '面具代表着年长的女性，是goli舞会的最后环节，椭圆脸，圆额头，拱形的眉毛，厚重的眼睑，眼睛几乎闭着，一个细长的鼻子在张开的嘴巴上露出牙齿。',
+                '5': 'Mwana Pwo面具代表年轻的女性形象，体现了Chokwe文化中对女性美丽和理想的象征。面具特征包括精致的发型、细长的眼睛和优雅的面部轮廓。',
+                '6': 'Pwo面具是Chokwe文化中重要的女性面具，象征着成熟女性的智慧和美德。面具设计强调女性的美丽和社会地位，在重要仪式中使用。',
+                '7': 'Cihongo面具是Chokwe文化中的男性面具，代表权力、权威和财富。面具特征包括大眼睛、宽鼻和装饰性的胡须，象征男性的力量和社会地位。',
+                '9': 'Sowei面具是Mende文化中最神圣的面具之一，由Sande社会在女性成年仪式中使用。面具特征包括光滑的皮肤、小嘴巴和环形的颈部，代表女性的美丽和纯洁。',
+                'goli-dance-baoule': 'Explore the rich cultural heritage and spiritual significance of the Goli dance, a traditional performance that embodies the Baoule people\'s connection to their ancestors, nature, and community.',
+                'mukanda-ceremony-chokwe': 'Explore the rich cultural heritage and spiritual significance of the Mukanda ceremony, a traditional initiation rite that embodies the Chokwe people\'s connection to their ancestors, nature, and community.',
+                'sowei-mask-mende': 'Discover the profound cultural significance of the Sowei mask within the Sande society, an exclusive women\'s society that embodies the Mende people\'s spiritual traditions, feminine power, and community values.'
+            };
+
+            const excerptElement = document.getElementById('articleExcerpt');
+            if (excerptElement && excerpts[articleId]) {
+                excerptElement.innerHTML = `<p>${excerpts[articleId]}</p>`;
+            }
         }
 
 

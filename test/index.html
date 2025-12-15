@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Mask Soul: African Tribal Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Nunito:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+      body {
+        /* Priority: Nunito (Eng) -> PingFang SC (Mac Heiti) -> Microsoft YaHei (Win Heiti) -> System Sans */
+        font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', 'Heiti SC', sans-serif;
+        background-color: #fdfbf7;
+        overflow: hidden; 
+        touch-action: none;
+      }
+      .font-hand {
+        /* Priority: Gochi Hand (Eng) -> ZCOOL KuaiLe (Cute CN) -> YouYuan (Win Rounded) -> Heiti Fallbacks */
+        font-family: 'Gochi Hand', 'ZCOOL KuaiLe', 'YouYuan', 'Microsoft YaHei', sans-serif;
+      }
+      /* Custom Scrollbar hide */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #92400e; 
+        border-radius: 4px;
+      }
+      
+      /* Notebook Paper Background Pattern */
+      .bg-notebook-paper {
+        background-color: #fdfbf7;
+        /* Ruled lines pattern */
+        background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+        background-size: 100% 24px;
+      }
+
+      /* 3D Pop Up Animation */
+      .perspective-container {
+        perspective: 800px;
+        perspective-origin: center bottom;
+        transform-style: preserve-3d;
+      }
+      
+      .pop-up-item {
+        transform-origin: center bottom;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      
+      .is-flat {
+        transform: rotateX(90deg) scale(0.8);
+        opacity: 0.5;
+      }
+      
+      .is-standing {
+        transform: rotateX(0deg) scale(1);
+        opacity: 1;
+      }
+
+      /* Character Animation */
+      @keyframes bounce-move {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-8px) scale(1.05); }
+      }
+      .animate-bounce-move {
+        animation: bounce-move 0.4s infinite linear;
+      }
+
+      /* Leg Animations */
+      @keyframes leg-swing {
+        0%, 100% { transform: rotate(-25deg); }
+        50% { transform: rotate(25deg); }
+      }
+      @keyframes leg-swing-opp {
+        0%, 100% { transform: rotate(25deg); }
+        50% { transform: rotate(-25deg); }
+      }
+      
+      /* Arm Animations */
+      @keyframes arm-swing {
+        0%, 100% { transform: rotate(20deg); }
+        50% { transform: rotate(-20deg); }
+      }
+      @keyframes arm-swing-opp {
+        0%, 100% { transform: rotate(-20deg); }
+        50% { transform: rotate(20deg); }
+      }
+
+      .animate-leg {
+        animation: leg-swing 0.8s infinite ease-in-out;
+      }
+      .animate-leg-opp {
+        animation: leg-swing-opp 0.8s infinite ease-in-out;
+      }
+      .animate-arm {
+        animation: arm-swing 0.8s infinite ease-in-out;
+      }
+      .animate-arm-opp {
+        animation: arm-swing-opp 0.8s infinite ease-in-out;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

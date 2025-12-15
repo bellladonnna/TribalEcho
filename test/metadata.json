@@ -1,0 +1,5 @@
+{
+  "name": "test",
+  "description": "A vertical scrolling interactive story game replicating the playful style of Kakao Friends.",
+  "requestFramePermissions": []
+}

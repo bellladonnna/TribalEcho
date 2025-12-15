@@ -4,25 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>面具之魂：探寻你的非洲部落化身</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Nunito:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-</head>
-<body class="mask-test-page">
-    <!-- 顶部横幅区域 -->
-    <section class="top-banner">
-        <div class="banner-item">
-            <span class="banner-label">THE GLOBAL SOUTH</span>
-        </div>
-        <div class="banner-item">
-            <span class="banner-label">TRIBES AND MASKS</span>
-        </div>
-        <div class="banner-item">
-            <span class="banner-label">AFRICAN INSTRUMENTS</span>
-        </div>
-        <div class="banner-item">
-            <span class="banner-label">THE SOUL OF THE MASKS</span>
-        </div>
-    </section>
+    <style>
+      body {
+        font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', 'Heiti SC', sans-serif;
+        background-color: #fdfbf7;
+        overflow: hidden; 
+        touch-action: none;
+      }
+      .font-hand {
+        font-family: 'Gochi Hand', 'ZCOOL KuaiLe', 'YouYuan', 'Microsoft YaHei', sans-serif;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .bg-notebook-paper {
+        background-color: #fdfbf7;
+      }
+      .perspective-container {
+        perspective: 800px;
+        perspective-origin: center bottom;
+        transform-style: preserve-3d;
+      }
+      .pop-up-item {
+        transform-origin: center bottom;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .is-flat {
+        transform: rotateX(90deg) scale(0.8);
+        opacity: 0.5;
+      }
+      .is-standing {
+        transform: rotateX(0deg) scale(1);
+        opacity: 1;
+      }
+      @keyframes bounce-move {
+        0%, 100% { transform: translateY(0) scale(1) scaleY(1); }
+        25% { transform: translateY(-3px) scale(1.02) scaleY(0.98); }
+        50% { transform: translateY(-6px) scale(1.04) scaleY(0.96); }
+        75% { transform: translateY(-3px) scale(1.02) scaleY(0.98); }
+      }
+      .animate-bounce-move {
+        animation: bounce-move 0.9s infinite ease-in-out;
+      }
+      @keyframes leg-swing {
+        0%, 100% { transform: rotate(-20deg); }
+        25% { transform: rotate(-15deg); }
+        50% { transform: rotate(20deg); }
+        75% { transform: rotate(15deg); }
+      }
+      @keyframes leg-swing-opp {
+        0%, 100% { transform: rotate(20deg); }
+        25% { transform: rotate(15deg); }
+        50% { transform: rotate(-20deg); }
+        75% { transform: rotate(-15deg); }
+      }
+      @keyframes arm-swing {
+        0%, 100% { transform: rotate(15deg); }
+        25% { transform: rotate(10deg); }
+        50% { transform: rotate(-15deg); }
+        75% { transform: rotate(-10deg); }
+      }
+      @keyframes arm-swing-opp {
+        0%, 100% { transform: rotate(-15deg); }
+        25% { transform: rotate(-10deg); }
+        50% { transform: rotate(15deg); }
+        75% { transform: rotate(10deg); }
+      }
+      .animate-leg {
+        transform-origin: 45px 75px;
+        animation: leg-swing 0.9s infinite ease-in-out;
+      }
+      .animate-leg-opp {
+        transform-origin: 55px 75px;
+        animation: leg-swing-opp 0.9s infinite ease-in-out;
+      }
+      .animate-arm {
+        transform-origin: 40px 55px;
+        animation: arm-swing 0.9s infinite ease-in-out;
+      }
+      .animate-arm-opp {
+        transform-origin: 60px 55px;
+        animation: arm-swing-opp 0.9s infinite ease-in-out;
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      /* 导航栏相关样式 */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
 
+      /* 确保导航栏元素具有正确的z-index */
+      .dropdown-menu {
+        z-index: 51;
+      }
+      
+      .dropdown-overlay {
+        z-index: 50;
+      }
+      
+      .search-panel {
+        z-index: 52;
+      }
+
+      /* 返回按钮样式 - 调整位置以避免与导航栏重叠 */
+      .back-button {
+        backdrop-filter: blur(8px);
+        z-index: 53;
+        top: 75px; /* 调整为导航栏高度 + 边距 */
+      }
+      .back-button:hover {
+        transform: scale(1.05);
+      }
+      .back-button:active {
+        transform: translate(2px, 2px);
+      }
+
+      /* 为主游戏容器添加顶部padding，避免被导航栏遮挡 */
+      #root {
+        padding-top: 60px;
+      }
+    </style>
+</head>
+<body>
     <!-- 顶部导航栏 -->
     <header class="header" id="header">
         <div class="header-container">
@@ -83,88 +207,895 @@
         </div>
     </div>
 
-    <!-- 主内容区 - 测试游戏 -->
-    <main class="main-content">
-        <section class="game-container">
-            <!-- 游戏开始界面 -->
-            <div id="gameStart" class="game-screen active">
-                <div class="game-header">
-                    <h1 class="game-title">面具之魂</h1>
-                    <p class="game-subtitle">探寻你的非洲部落化身</p>
-                </div>
-                
-                <div class="game-intro">
-                    <p class="intro-text">
-                        在广袤的非洲大陆，每一个面具都是一个灵魂，一种力量，一段故事。
-                        它们不仅是艺术品，更是连接祖先、自然与社区的桥梁。
-                    </p>
-                    <p class="intro-text">
-                        揭开你内心深处的部落之魂，看看你与哪个非洲部落的精神特质最为契合。
-                        让古老的心灵智慧指引你，请在题目中选出你的第一反应。
-                    </p>
-                </div>
-                
 
-                
-                <button id="startTestBtn" class="btn-game-start">开始测试</button>
-            </div>
+    
+    <div id="root" class="w-full h-screen relative overflow-hidden"></div>
+    
+    <script>
+        const WORLD_HEIGHT = 4000;
+        let targetIndex = 0;
+        
+        let gameState = {
+            currentWaypointIndex: 0,
+            characterPosition: { x: 50, y: 420 },
+            cameraY: 0,
+            scene: 'INTRO',
+            isMoving: false,
+            answers: [],
+            finalResult: null,
+        };
 
-            <!-- 测试问题界面 -->
-            <div id="gameQuestions" class="game-screen">
-                <div class="question-header">
-                    <div class="question-progress">
-                        <div class="progress-bar">
-                            <div id="progressFill" class="progress-fill"></div>
+        const QUESTIONS = [
+            {
+                id: 1,
+                text: "第一题：在社交场合中，你通常是？",
+                options: [
+                    { text: "A. 组织者，确保一切有序进行", type: 'A' },
+                    { text: "B. 分享者，讲述有趣的经历", type: 'B' },
+                    { text: "C. 调解者，帮助大家和睦相处", type: 'C' },
+                    { text: "D. 观察者，默默感受氛围", type: 'D' },
+                ]
+            },
+            {
+                id: 2,
+                text: "第二题：面对未知的挑战，你首先会？",
+                options: [
+                    { text: "A. 直接果断地解决问题", type: 'A' },
+                    { text: "B. 观察分析本质和规律", type: 'B' },
+                    { text: "C. 联系同伴，寻求协作", type: 'C' },
+                    { text: "D. 顺应节奏，调整状态", type: 'D' },
+                ]
+            },
+            {
+                id: 3,
+                text: "第三题：你认为真正的力量来自？",
+                options: [
+                    { text: "A. 纪律和意志力", type: 'A' },
+                    { text: "B. 智慧和创造力", type: 'B' },
+                    { text: "C. 沟通和理解", type: 'C' },
+                    { text: "D. 与自然的连接", type: 'D' },
+                ]
+            },
+            {
+                id: 4,
+                text: "第四题：在团队中，你最重视？",
+                options: [
+                    { text: "A. 明确的目标和执行力", type: 'A' },
+                    { text: "B. 自由表达和创新空间", type: 'B' },
+                    { text: "C. 和谐的氛围和情感连接", type: 'C' },
+                    { text: "D. 与环境的和谐共生", type: 'D' },
+                ]
+            },
+            {
+                id: 5,
+                text: "第五题：你最擅长的学习方式是？",
+                options: [
+                    { text: "A. 系统化学习和实践", type: 'A' },
+                    { text: "B. 自由探索和试错", type: 'B' },
+                    { text: "C. 与他人讨论交流", type: 'C' },
+                    { text: "D. 亲身体验和感悟", type: 'D' },
+                ]
+            },
+            {
+                id: 6,
+                text: "第六题：你更偏爱哪种创作方式？",
+                options: [
+                    { text: "A. 构建宏大的体系", type: 'A' },
+                    { text: "B. 解构复杂的概念", type: 'B' },
+                    { text: "C. 编织精妙的故事", type: 'C' },
+                    { text: "D. 感受即兴的灵感", type: 'D' },
+                ]
+            },
+            {
+                id: 7,
+                text: "第七题：你认为什么是理想的社区？",
+                options: [
+                    { text: "A. 纪律严明的堡垒", type: 'A' },
+                    { text: "B. 思想自由的学城", type: 'B' },
+                    { text: "C. 平等互助的联盟", type: 'C' },
+                    { text: "D. 亲近自然的部落", type: 'D' },
+                ]
+            },
+            {
+                id: 8,
+                text: "第八题：你如何定义自己的美？",
+                options: [
+                    { text: "A. 力量之美", type: 'A' },
+                    { text: "B. 智慧之美", type: 'B' },
+                    { text: "C. 和谐之美", type: 'C' },
+                    { text: "D. 本真之美", type: 'D' },
+                ]
+            }
+        ];
+
+        const ASSETS = {
+            avatar: "🗿", 
+            totems: ["🦁", "🏺", "🐍", "🔥", "🥁", "🎭", "🦅", "🌞"],
+            trees: ["🌳", "🌴", "🌵", "🌿"],
+            houses: ["🛖", "⛺"],
+            rocks: ["🪨", "⛰️"],
+        };
+
+        const WAYPOINTS = [
+            { pos: { x: 50, y: 420 } },
+            { pos: { x: 20, y: 450 }, questionId: 1, totem: ASSETS.totems[0] },
+            { pos: { x: 80, y: 750 }, questionId: 2, totem: ASSETS.totems[1] },
+            { pos: { x: 30, y: 1100 }, questionId: 3, totem: ASSETS.totems[2] },
+            { pos: { x: 70, y: 1450 }, questionId: 4, totem: ASSETS.totems[3] },
+            { pos: { x: 25, y: 1850 }, questionId: 5, totem: ASSETS.totems[4] },
+            { pos: { x: 75, y: 2200 }, questionId: 6, totem: ASSETS.totems[5] },
+            { pos: { x: 20, y: 2600 }, questionId: 7, totem: ASSETS.totems[6] },
+            { pos: { x: 50, y: 3000 }, questionId: 8, totem: ASSETS.totems[7] },
+            { pos: { x: 50, y: 3400 }, isEnd: true },
+        ];
+
+        const SCENERY = [
+            { id: 's1', asset: ASSETS.trees[0], x: 70, y: 350, scale: 1.2, rotation: -5 },
+            { id: 's2', asset: ASSETS.houses[0], x: 80, y: 400, scale: 1.5, rotation: 5 },
+            { id: 's3', asset: ASSETS.rocks[1], x: 20, y: 650, scale: 1.0, rotation: 0 },
+            { id: 's4', asset: ASSETS.trees[1], x: 30, y: 750, scale: 1.3, rotation: 10 },
+            { id: 's5', asset: ASSETS.trees[2], x: 75, y: 1050, scale: 0.9, rotation: -8 },
+            { id: 's6', asset: ASSETS.houses[1], x: 85, y: 1150, scale: 1.4, rotation: 3 },
+            { id: 's7', asset: ASSETS.trees[3], x: 20, y: 1400, scale: 1.1, rotation: -3 },
+            { id: 's8', asset: ASSETS.rocks[0], x: 10, y: 1500, scale: 0.8, rotation: 15 },
+            { id: 's9', asset: ASSETS.trees[0], x: 80, y: 1800, scale: 1.5, rotation: 5 },
+            { id: 's10', asset: ASSETS.houses[0], x: 70, y: 1900, scale: 1.2, rotation: -5 },
+            { id: 's11', asset: ASSETS.trees[1], x: 25, y: 2150, scale: 1.0, rotation: 8 },
+            { id: 's12', asset: ASSETS.rocks[1], x: 15, y: 2250, scale: 1.3, rotation: -2 },
+            { id: 's13', asset: ASSETS.trees[2], x: 80, y: 2550, scale: 1.4, rotation: 4 },
+            { id: 's14', asset: ASSETS.houses[1], x: 70, y: 2650, scale: 1.1, rotation: -6 },
+        ];
+
+        const RIVER_PATHS = [
+            "M -50 900 C 200 750, 400 1100, 650 950 C 900 800, 1100 1150, 1350 1000 C 1600 850, 1800 1200, 2050 1050",
+            "M 100 2300 C 300 2100, 500 2500, 750 2350 C 1000 2200, 1200 2600, 1450 2450 C 1700 2300, 1900 2700, 2050 2550"
+        ];
+
+        const RESULTS = {
+            '1': {
+                id: '1',
+                name: "鲍勒族 · 祖先面具 ",
+                title: "和谐型人格 · 美学标杆",
+                trait: "优雅",
+                strength: "平衡",
+                skill: "颜值维稳",
+                desc: "你崇尚并创造着一切形式的美与和谐。是社交圈里的定海神针，能用温柔的力量抚平毛躁，让世界变得优雅从容。",
+                color: "bg-red-100",
+                icon: "🛡️"
+            },
+            '2': {
+                id: '2',
+                name: "塞努福部落 · 德格勒面具",
+                title: "力量型人格 · 野性图腾",
+                trait: "守护",
+                strength: "威慑",
+                skill: "驱邪避灾",
+                desc: "你是抵御负面能量的屏障，原始力量的化身。气场如同不灭的火焰，能守护社群的安宁与纯净。",
+                color: "bg-green-100",
+                icon: "🌾"
+            },
+            '3': {
+                id: '3',
+                name: "多贡部落 · 大面具",
+                title: "哲思型人格 · 宇宙模组",
+                trait: "深邃",
+                strength: "洞察",
+                skill: "参透本质",
+                desc: "你的精神连接着星辰与古老智慧。喜欢探寻万物规律，是朋友中行走的百科圣光，总能带来降维打击的启发。",
+                color: "bg-indigo-100",
+                icon: "🌌"
+            },
+            '4': {
+                id: '4',
+                name: "巴库巴族 · 邦博面具",
+                title: "领袖型人格 · 天选贵族",
+                trait: "华丽",
+                strength: "统御",
+                skill: "华丽控场",
+                desc: " 你的魅力来自与生俱来的格局与气场。无需刻意强调，就能成为人群的中心，指引方向，天生就是大场面玩家。",
+                color: "bg-blue-100",
+                icon: "🦁"
+            },
+            '5': {
+                id: '5',
+                name: "丹人 · 丹面具",
+                title: "调解型人格 · 和平基站",
+                trait: "宁静",
+                strength: "凝聚",
+                skill: "化干戈为玉帛",
+                desc: "你拥有让对立双方冷静下来的魔力。是人际关系的润滑剂，总能精准找到共识，让世界因你而更团结。",
+                color: "bg-orange-100",
+                icon: "🤝"
+            },
+            '6': {
+                id: '6',
+                name: "马康德部落 · 谢塔尼面具",
+                title: "灵感型人格 · 梦境捕手",
+                trait: "抽象",
+                strength: "创意",
+                skill: "脑洞开花",
+                desc: "你的思维不受重力束缚，是天生的幻想建筑师。总能从异次元带来惊喜，是团队里不可或缺的灵感永动机。",
+                color: "bg-yellow-100",
+                icon: "⚔️"
+            },
+            '7': {
+                id: '7',
+                name: "约鲁巴部落 · 盖莱德面具",
+                title: "沟通型人格 · 幽默观察家",
+                trait: "诙谐",
+                strength: "警世",
+                skill: "寓教于乐",
+                desc: "你擅长用幽默包裹智慧，在欢声笑语中点破真相。是洞察人性的社交艺术家，你的“吐槽”总让人心服口服。",
+                color: "bg-purple-100",
+                icon: "⚖️"
+            },
+            '8': {
+                id: '8',
+                name: "普努人 · 普努面具",
+                title: "灵性人格 · 祖灵之桥",
+                trait: "典雅",
+                strength: "连接",
+                skill: "通灵对话",
+                desc: "你的气质沉静而通透，如同连接天地的白桦。能轻易聆听来自过去与自然的声音，是温柔的灵性媒介。",
+                color: "bg-amber-100",
+                icon: "📿"
+            }
+        };
+
+        function renderGame() {
+            const root = document.getElementById('root');
+            
+            switch(gameState.scene) {
+                case 'INTRO':
+                    renderIntro(root);
+                    break;
+                case 'WALKING':
+                    renderWalking(root);
+                    break;
+                case 'QUIZ_STOP':
+                    renderWalking(root);
+                    setTimeout(() => renderQuiz(root), 100);
+                    break;
+                case 'ENDING':
+                    renderResult(root);
+                    break;
+                default:
+                    renderWalking(root);
+            }
+        }
+
+        function renderIntro(container) {
+            container.innerHTML = `
+                <div class="absolute w-full h-full bg-notebook-paper" style="height: ${WORLD_HEIGHT}px;">
+                    <!-- Notebook Lines Layer (bottom layer) -->
+                    <div class="absolute inset-0 pointer-events-none" style="z-index: 0; background-image: linear-gradient(#e5e7eb 1px, transparent 1px); background-size: 100% 24px; opacity: 0.5;"></div>
+                    
+                    <!-- Scenery Items (only first few for intro) -->
+                    ${SCENERY.filter(item => item.y < 600).map(item => `
+                        <div class="absolute pointer-events-none select-none" style="left: ${item.x}%; top: ${item.y}px; font-size: 3.5rem; z-index: 1; filter: contrast(1.1) sepia(0.3); mix-blend-mode: multiply; opacity: 0.85; transform: rotate(${item.rotation}deg) scale(${item.scale});">
+                            ${item.asset}
                         </div>
-                        <span id="questionNumber">1/8</span>
-                    </div>
-                </div>
-                
-                <div class="question-carousel" id="questionCarousel">
-                    <div class="question-slider" id="questionSlider">
-                        <!-- 问题卡片将通过JavaScript动态生成 -->
-                    </div>
-                    <div class="swipe-hint">← 滑动切换 →</div>
-                </div>
-                
-                <div class="question-indicators" id="questionIndicators">
-                    <!-- 指示器将通过JavaScript动态生成 -->
-                </div>
-            </div>
+                    `).join('')}
 
-            <!-- 结果展示界面 -->
-            <div id="gameResult" class="game-screen">
-                <div class="result-container">
-                    <h2 class="result-title">你的部落面具化身</h2>
-                    <div class="result-mask">
-                        <img id="resultMaskImage" src="" alt="部落面具" class="result-mask-image">
+                    <!-- Waypoint Totems (only first few) -->
+                    ${WAYPOINTS.slice(0, 3).map((wp, idx) => {
+                        if (!wp.totem) return '';
+                        return `
+                            <div class="absolute" style="left: ${wp.pos.x}%; top: ${wp.pos.y}px; width: 60px; height: 60px; margin-left: -30px; margin-top: -50px; z-index: 2;">
+                                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-4 bg-black/10 rounded-[100%] blur-[2px]"></div>
+                                <div class="w-full h-full flex items-end justify-center text-5xl opacity-50">
+                                    <div class="relative filter drop-shadow-sm">${wp.totem}</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+
+                    <div class="absolute w-full top-[60px] flex flex-col items-center text-center px-6 z-20">
+                        <h1 class="text-6xl font-hand font-black text-amber-900 mb-6 tracking-tighter mix-blend-multiply opacity-90">
+                            面具之魂
+                        </h1>
+                        <div class="font-hand text-amber-800 leading-relaxed max-w-sm mix-blend-multiply opacity-80 flex flex-col items-center">
+                            <span class="block border-b-2 border-amber-900/10 pb-3 mb-3 text-3xl font-bold">探寻你的非洲部落化身</span>
+                            <span class="text-xl font-normal">测测你是什么类型的非洲部落面具</span>
+                        </div>
+                        
+                        <button onclick="startGame()" class="mt-60 px-8 py-3 bg-[#fdfbf7] border-2 border-amber-900 text-amber-900 font-hand text-2xl rounded-sm shadow-[4px_4px_0px_0px_#5D4037] hover:bg-amber-50 active:shadow-none active:translate-x-1 active:translate-y-1 transition-all">
+                            开始旅程
+                        </button>
                     </div>
-                    <h3 id="resultMaskName" class="result-mask-name"></h3>
-                    <div id="resultMaskTribe" class="result-mask-tribe"></div>
-                    
-                    <div class="result-description">
-                        <p id="resultDescription" class="result-text"></p>
-                    </div>
-                    
-                    <div class="result-traits">
-                        <h4>你的性格特质：</h4>
-                        <div id="resultTraits" class="traits-list">
-                            <!-- 特质标签将通过JavaScript生成 -->
+
+                    <div class="absolute z-30" style="left: 50%; top: 420px; transform: translate(-50%, -90%);">
+                        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-12 h-4 bg-black/20 rounded-[100%] blur-[1.5px]"></div>
+                        <div class="relative w-32 h-32">
+                            ${getCharacterSVG(false)}
                         </div>
                     </div>
+                </div>
+            `;
+        }
+
+        function renderWalking(container) {
+            const footprints = generateFootprints();
+            const totems = WAYPOINTS.map((wp, idx) => {
+                if (!wp.totem) return null;
+                const isReached = idx <= gameState.currentWaypointIndex;
+                return `
+                    <div class="absolute" style="left: ${wp.pos.x}%; top: ${wp.pos.y}px; width: 60px; height: 60px; margin-left: -30px; margin-top: -50px; z-index: 2;">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-4 bg-black/10 rounded-[100%] blur-[2px] transition-opacity duration-500 ${isReached ? 'opacity-100' : 'opacity-0'}"></div>
+                        <div class="w-full h-full flex items-end justify-center text-5xl ${isReached ? 'opacity-100' : 'opacity-50'}">
+                            <div class="relative filter drop-shadow-sm">${wp.totem}</div>
+                        </div>
+                    </div>
+                `;
+            }).filter(Boolean).join('');
+
+            container.innerHTML = `
+                <div class="absolute w-full h-full bg-notebook-paper transition-transform duration-500" style="transform: translateY(-${gameState.cameraY}px); height: ${WORLD_HEIGHT}px;">
                     
-                    <div class="result-actions">
-                        <button id="retakeTestBtn" class="btn-secondary">重新测试</button>
-                        <button id="shareResultBtn" class="btn-primary">分享结果</button>
+                    <!-- Notebook Lines Layer (bottom layer) -->
+                    <div class="absolute inset-0 pointer-events-none" style="z-index: 0; background-image: linear-gradient(#e5e7eb 1px, transparent 1px); background-size: 100% 24px; opacity: 0.3;"></div>
+                    
+                    <!-- River Layer -->
+                    <svg class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 0">
+                        ${RIVER_PATHS.map((path, idx) => `
+                            <path d="${path}" fill="none" stroke="#a5d8ff" stroke-width="50" stroke-linecap="round" style="mix-blend-mode: multiply; opacity: 0.6" />
+                        `).join('')}
+                    </svg>
+
+                    <!-- Footprints -->
+                    ${footprints.map(fp => `
+                        <div class="absolute opacity-30 pointer-events-none" style="left: ${fp.x}%; top: ${fp.y}px; width: 8px; height: 10px; background-color: #5D4037; border-radius: 50%; transform: translate(-50%, -50%) rotate(${fp.rotation}deg); z-index: 1;"></div>
+                    `).join('')}
+
+                    <!-- Scenery Items -->
+                    ${SCENERY.map(item => `
+                        <div class="absolute pointer-events-none select-none" style="left: ${item.x}%; top: ${item.y}px; font-size: 3.5rem; z-index: 2; filter: contrast(1.1) sepia(0.3); mix-blend-mode: multiply; opacity: 0.85; transform: rotate(${item.rotation}deg) scale(${item.scale});">
+                            ${item.asset}
+                        </div>
+                    `).join('')}
+
+                    <!-- Waypoint Totems -->
+                    ${totems}
+
+                    <!-- Character -->
+                    <div class="absolute z-30" style="left: ${gameState.characterPosition.x}%; top: ${gameState.characterPosition.y}px; transform: translate(-50%, -90%);">
+                        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-12 h-4 bg-black/20 rounded-[100%] blur-[1.5px]"></div>
+                        <div class="relative w-32 h-32 ${gameState.isMoving ? 'animate-bounce-move' : ''}">
+                            ${getCharacterSVG(gameState.isMoving)}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            `;
+        }
+
+        function renderQuiz(container) {
+            // 创建问题背景图片映射
+            const questionBackgrounds = {
+                '1': 'photo/问题背景/题目1.png',
+                '2': 'photo/问题背景/题目2.png',
+                '3': 'photo/问题背景/题目3.png',
+                '4': 'photo/问题背景/题目4.png',
+                '5': 'photo/问题背景/题目5.png',
+                '6': 'photo/问题背景/题目6.png',
+                '7': 'photo/问题背景/题目7.png',
+                '8': 'photo/问题背景/题目8.png'
+            };
+
+            // 首先渲染背景场景
+            const footprints = generateFootprints();
+            const totems = WAYPOINTS.map((wp, idx) => {
+                if (!wp.totem) return null;
+                const isReached = idx <= gameState.currentWaypointIndex;
+                return `
+                    <div class="absolute" style="left: ${wp.pos.x}%; top: ${wp.pos.y}px; width: 60px; height: 60px; margin-left: -30px; margin-top: -50px; z-index: 2;">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-4 bg-black/10 rounded-[100%] blur-[2px] transition-opacity duration-500 ${isReached ? 'opacity-100' : 'opacity-0'}"></div>
+                        <div class="w-full h-full flex items-end justify-center text-5xl ${isReached ? 'opacity-100' : 'opacity-50'}">
+                            <div class="relative filter drop-shadow-sm">${wp.totem}</div>
+                        </div>
+                    </div>
+                `;
+            }).filter(Boolean).join('');
+
+            const currentWaypointData = WAYPOINTS[gameState.currentWaypointIndex];
+            const currentQuestion = QUESTIONS.find(q => q.id === currentWaypointData.questionId);
+            
+            let optionsHTML = '';
+            for (let i = 0; i < currentQuestion.options.length; i++) {
+                const opt = currentQuestion.options[i];
+                optionsHTML += `
+                    <button
+                        onclick="selectAnswer('${opt.type}')"
+                        class="text-left p-4 bg-[#fdfbf7]/85 border-2 border-[#fdfbf7]/100 hover:border-amber-200 hover:bg-[#fdfbf7]/100 transition-all font-hand text-[14px] text-amber-900 rounded-sm active:scale-[0.99]"
+                    >
+                        <span class="font-bold mr-2 text-amber-600">${opt.text.split('.')[0]}.</span>
+                        ${opt.text.split('.').slice(1).join('.')}
+                    </button>
+                `;
+            }
+            
+            container.innerHTML = `
+                <!-- Background Scene -->
+                <div class="absolute w-full h-full bg-notebook-paper transition-transform duration-500" style="transform: translateY(-${gameState.cameraY}px); height: ${WORLD_HEIGHT}px;">
+                    
+                    <!-- Notebook Lines Layer (bottom layer) -->
+                    <div class="absolute inset-0 pointer-events-none" style="z-index: 0; background-image: linear-gradient(#e5e7eb 1px, transparent 1px); background-size: 100% 24px; opacity: 0.3;"></div>
+                    
+                    <!-- River Layer -->
+                    <svg class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 0">
+                        ${RIVER_PATHS.map((path, idx) => `
+                            <path d="${path}" fill="none" stroke="#a5d8ff" stroke-width="50" stroke-linecap="round" style="mix-blend-mode: multiply; opacity: 0.6" />
+                        `).join('')}
+                    </svg>
+
+                    <!-- Footprints -->
+                    ${footprints.map(fp => `
+                        <div class="absolute opacity-30 pointer-events-none" style="left: ${fp.x}%; top: ${fp.y}px; width: 8px; height: 10px; background-color: #5D4037; border-radius: 50%; transform: translate(-50%, -50%) rotate(${fp.rotation}deg); z-index: 1;"></div>
+                    `).join('')}
+
+                    <!-- Scenery Items -->
+                    ${SCENERY.map(item => `
+                        <div class="absolute pointer-events-none select-none" style="left: ${item.x}%; top: ${item.y}px; font-size: 3.5rem; z-index: 2; filter: contrast(1.1) sepia(0.3); mix-blend-mode: multiply; opacity: 0.85; transform: rotate(${item.rotation}deg) scale(${item.scale});">
+                            ${item.asset}
+                        </div>
+                    `).join('')}
+
+                    <!-- Waypoint Totems -->
+                    ${totems}
+
+                    <!-- Character -->
+                    <div class="absolute z-30" style="left: ${gameState.characterPosition.x}%; top: ${gameState.characterPosition.y}px; transform: translate(-50%, -90%);">
+                        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-12 h-4 bg-black/20 rounded-[100%] blur-[1.5px]"></div>
+                        <div class="relative w-32 h-32">
+                            ${getCharacterSVG(false)}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question Card Overlay -->
+                <div class="absolute inset-0 z-50 flex items-center justify-center p-4 fade-in">
+                    <div class="w-full max-w-[500px] p-6 border-2 border-amber-900 shadow-[8px_8px_0px_0px_rgba(60,40,30,0.15)] rounded-sm flex flex-col max-h-[85vh] relative transform rotate-1" 
+                         style="background-image: url('${questionBackgrounds[currentQuestion.id]}'); 
+                                background-size: cover; 
+                                background-position: center; 
+                                background-repeat: no-repeat;">
+                        
+
+                        
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-amber-400/30 rotate-[-2deg] shadow-sm backdrop-blur-sm z-10"></div>
+
+                        <!-- 卡片内容（相对定位，确保在半透明层之上） -->
+                        <div class="relative z-10">
+                            <div class="text-amber-800 text-xs font-bold uppercase tracking-widest mb-4 text-center shrink-0 font-hand">
+                                Checkpoint ${currentQuestion.id}
+                            </div>
+                            
+                            <div class="overflow-y-auto mb-6 shrink-0 text-center">
+                                <h3 class="text-2xl font-hand text-white leading-tight drop-shadow-[3px_3px_0_rgba(139,69,19,1.0)]">
+                                    ${currentQuestion.text}
+                                </h3>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 overflow-y-auto flex-1 pr-1">
+                                ${optionsHTML}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResult(container) {
+            const result = RESULTS[gameState.finalResult];
+            
+            // 创建面具图片路径映射
+            const maskImages = {
+                '1': 'photo/面具集合/1.祖先面具.jpg',
+                '2': 'photo/面具集合/2.德格勒面具.jpg', 
+                '3': 'photo/面具集合/3.大面具.jpg',
+                '4': 'photo/面具集合/4.邦博面具.jpg',
+                '5': 'photo/面具集合/5.丹面具.jpg',
+                '6': 'photo/面具集合/6.谢塔尼面具.jpg',
+                '7': 'photo/面具集合/7.盖莱德面具.jpg',
+                '8': 'photo/面具集合/8.普努面具.jpg'
+            };
+            
+            container.innerHTML = `
+                <div class="absolute inset-0 z-50 flex items-center justify-center bg-[#fdfbf7]/95 fade-in">
+                    <div class="w-full h-full max-w-md overflow-y-auto p-6 flex flex-col items-center justify-center">
+                        <div class="w-full bg-white border-2 border-amber-950 p-6 shadow-[10px_10px_0_0_rgba(0,0,0,0.05)] rounded-sm relative shrink-0 transform -rotate-1">
+                            <div class="absolute -top-4 right-10 w-24 h-8 bg-red-400/20 rotate-3 backdrop-blur-sm"></div>
+
+                            <!-- 面具图片区域 -->
+                            <div class="relative mb-6">
+                                <div class="w-80 h-auto mx-auto shadow-lg p-2">
+                                    <img src="${maskImages[gameState.finalResult]}" 
+                                         alt="${result.name}" 
+                                         class="w-full h-auto object-contain"
+                                         style="max-height: 400px;"
+                                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-7xl opacity-90 mix-blend-multiply\\'>${result.icon}</div>'">
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <h3 class="text-2xl md:text-3xl font-bold font-hand text-amber-900 leading-none">
+                                    ${result.title}
+                                </h3>
+                            </div>
+
+                            <div class="text-center font-hand text-sm text-amber-900 mb-6 bg-stone-50 p-3 rounded border border-dashed border-stone-300">
+                                <div class="flex flex-col justify-center">
+                                    <div class="opacity-50 text-[10px] uppercase mb-2">拿手好戏</div>
+                                    <span class="font-bold text-lg">${result.skill}</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <p class="text-sm leading-relaxed text-amber-800 font-hand">
+                                    ${result.desc}
+                                </p>
+                            </div>
+
+                            <div class="flex justify-center gap-3">
+                                <button onclick="resetGame()" class="px-4 py-2 bg-amber-800 border-2 border-amber-600 text-white font-normal rounded hover:bg-amber-900 transition-all font-hand">
+                                    重新测试
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateFootprints() {
+            const prints = [];
+            const REF_WIDTH = 400;
+
+            const generateSegment = (start, end, maxDist) => {
+                const sx = (start.x / 100) * REF_WIDTH;
+                const sy = start.y;
+                const ex = (end.x / 100) * REF_WIDTH;
+                const ey = end.y;
+
+                const dx = ex - sx;
+                const dy = ey - sy;
+                const fullDist = Math.sqrt(dx*dx + dy*dy);
+                const angleRad = Math.atan2(dy, dx);
+                const angleDeg = (angleRad * 180) / Math.PI;
+
+                const stepSize = 25;
+                const count = Math.floor(fullDist / stepSize);
+                
+                for (let i = 1; i <= count; i++) {
+                    const distFromStart = i * stepSize;
+                    
+                    if (maxDist !== undefined && distFromStart > maxDist) break;
+
+                    const t = distFromStart / fullDist;
+                    const bx = sx + dx * t;
+                    const by = sy + dy * t;
+
+                    const isRight = i % 2 === 0;
+                    const offsetAmt = 5;
+                    const nx = -Math.sin(angleRad);
+                    const ny = Math.cos(angleRad);
+                    const sideMult = isRight ? 1 : -1;
+                    
+                    const fx = bx + (nx * offsetAmt * sideMult);
+                    const fy = by + (ny * offsetAmt * sideMult);
+                    const xPct = (fx / REF_WIDTH) * 100;
+
+                    prints.push({
+                        x: xPct,
+                        y: fy,
+                        rotation: angleDeg + 90,
+                        id: `${start.x}-${start.y}-${i}`
+                    });
+                }
+            };
+
+            // History segments
+            for (let i = 0; i < gameState.currentWaypointIndex; i++) {
+                if (WAYPOINTS[i+1]) {
+                    generateSegment(WAYPOINTS[i].pos, WAYPOINTS[i+1].pos);
+                }
+            }
+
+            // Current active segment
+            if (gameState.isMoving && WAYPOINTS[gameState.currentWaypointIndex] && WAYPOINTS[gameState.currentWaypointIndex+1]) {
+                const start = WAYPOINTS[gameState.currentWaypointIndex].pos;
+                const sx = (start.x / 100) * REF_WIDTH;
+                const sy = start.y;
+                const cx = (gameState.characterPosition.x / 100) * REF_WIDTH;
+                const cy = gameState.characterPosition.y;
+                
+                const travelledDist = Math.sqrt(Math.pow(cx - sx, 2) + Math.pow(cy - sy, 2));
+                generateSegment(start, WAYPOINTS[gameState.currentWaypointIndex+1].pos, travelledDist);
+            }
+
+            return prints;
+        }
+
+        function getCharacterSVG(isAnimating) {
+            return `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                    <g>
+                        <!-- 左腿 -->
+                        <g class="${isAnimating ? 'animate-leg' : ''}" style="transform-origin: 45px 75px;">
+                            <path d="M45 75 L45 95" stroke="#8D5524" stroke-width="6" stroke-linecap="round" />
+                        </g>
+                        <!-- 左臂 -->
+                        <g class="${isAnimating ? 'animate-arm' : ''}" style="transform-origin: 40px 55px;">
+                            <path d="M40 55 L30 65" stroke="#8D5524" stroke-width="5" stroke-linecap="round" />
+                        </g>
+                        <!-- 身体装饰 -->
+                        <path d="M36 70 L42 85 L48 70" fill="#b45309" />
+                        <path d="M42 70 L48 85 L54 70" fill="#b45309" />
+                        <rect x="38" y="48" width="24" height="26" rx="4" fill="#8D5524" />
+                        <path d="M38 48 L38 72 L46 72 L46 48 Z" fill="#9a3412" />
+                        <path d="M54 48 L54 72 L62 72 L62 48 Z" fill="#9a3412" />
+                        <!-- 右腿 -->
+                        <g class="${isAnimating ? 'animate-leg-opp' : ''}" style="transform-origin: 55px 75px;">
+                            <path d="M55 75 L55 95" stroke="#8D5524" stroke-width="6" stroke-linecap="round" />
+                        </g>
+                        <!-- 草裙 -->
+                        <path d="M34 72 L38 88 L42 75 L46 88 L50 75 L54 88 L58 75 L62 88 L66 72" fill="#eab308" stroke="#a16207" stroke-width="1" stroke-linejoin="round" />
+                        <path d="M34 72 L66 72" stroke="#713f12" stroke-width="3" stroke-linecap="round" />
+                        <!-- 头部 -->
+                        <circle cx="50" cy="38" r="17" fill="#8D5524" />
+                        <path d="M33 32 Q50 22 67 32" stroke="#fbbf24" stroke-width="3" fill="none" />
+                        <path d="M44 22 L40 5 L48 15" fill="#ef4444" />
+                        <circle cx="54" cy="36" r="2" fill="#1a1a1a" />
+                        <circle cx="62" cy="36" r="2" fill="#1a1a1a" />
+                        <path d="M52 42 L56 44" stroke="#fff" stroke-width="2" opacity="0.6" stroke-linecap="round" />
+                        <path d="M60 42 L64 44" stroke="#fff" stroke-width="2" opacity="0.6" stroke-linecap="round" />
+                        <!-- 右臂 -->
+                        <g class="${isAnimating ? 'animate-arm-opp' : ''}" style="transform-origin: 60px 55px;">
+                            <path d="M60 55 L70 65" stroke="#8D5524" stroke-width="5" stroke-linecap="round" />
+                        </g>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function startGame() {
+            // 重置游戏状态
+            gameState.currentWaypointIndex = 0;
+            gameState.characterPosition = WAYPOINTS[0].pos;
+            gameState.cameraY = 0;
+            gameState.scene = 'WALKING';
+            gameState.isMoving = false;
+            gameState.answers = [];
+            gameState.finalResult = null;
+            
+            targetIndex = 1;
+            moveCharacter();
+        }
+
+        function moveCharacter() {
+            if (targetIndex >= WAYPOINTS.length) {
+                return;
+            }
+
+            const nextIndex = targetIndex;
+            const startPos = WAYPOINTS[gameState.currentWaypointIndex].pos;
+            const endPos = WAYPOINTS[nextIndex].pos;
+            
+            let progress = 0;
+            const speed = 0.015; // 优化后的行走速度，更自然的节奏
+
+            function animate() {
+                progress += speed;
+                if (progress >= 1) {
+                    progress = 1;
+                    gameState.currentWaypointIndex = nextIndex;
+                    gameState.isMoving = false;
+                    
+                    const currentPoint = WAYPOINTS[gameState.currentWaypointIndex];
+                    
+                    if (currentPoint.questionId && !currentPoint.isEnd) {
+                        gameState.scene = 'QUIZ_STOP';
+                    } else if (currentPoint.isEnd) {
+                        calculateResult();
+                    }
+                    
+                    renderGame();
+                    return;
+                }
+
+                const newX = startPos.x + (endPos.x - startPos.x) * progress;
+                const newY = startPos.y + (endPos.y - startPos.y) * progress;
+
+                const viewportHeight = window.innerHeight;
+                let targetCameraY = newY - (viewportHeight * 0.5);
+                if (targetCameraY < 0) targetCameraY = 0;
+                if (targetCameraY > WORLD_HEIGHT - viewportHeight) targetCameraY = WORLD_HEIGHT - viewportHeight;
+
+                gameState.characterPosition = { x: newX, y: newY };
+                gameState.cameraY = targetCameraY;
+                gameState.scene = 'WALKING';
+                gameState.isMoving = true;
+
+                renderGame();
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        function selectAnswer(type) {
+            gameState.answers.push(type);
+            gameState.scene = 'WALKING';
+            targetIndex++;
+            
+            // 延迟一下再开始移动，让用户看到选择的反馈
+            setTimeout(() => {
+                moveCharacter();
+            }, 300);
+        }
+
+        function calculateResult() {
+            const counts = { A: 0, B: 0, C: 0, D: 0 };
+            gameState.answers.forEach(a => {
+                if (counts[a] !== undefined) counts[a]++;
+            });
+
+            const maxScore = Math.max(counts.A, counts.B, counts.C, counts.D);
+            
+            if (counts.A === counts.B && counts.B === counts.C && counts.C === counts.D) {
+                gameState.finalResult = '7';
+            } else {
+                let dominant = '';
+                if (counts.A === maxScore) dominant = 'A';
+                else if (counts.B === maxScore) dominant = 'B';
+                else if (counts.C === maxScore) dominant = 'C';
+                else dominant = 'D';
+
+                let possibleResults = [];
+                if (dominant === 'A') possibleResults = ['1', '5'];
+                if (dominant === 'B') possibleResults = ['3', '8'];
+                if (dominant === 'C') possibleResults = ['4', '7'];
+                if (dominant === 'D') possibleResults = ['2', '6'];
+
+                const hash = gameState.answers.join('').split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                gameState.finalResult = possibleResults[hash % possibleResults.length];
+            }
+
+            gameState.scene = 'ENDING';
+            renderGame();
+        }
+
+        function resetGame() {
+            gameState = {
+                currentWaypointIndex: 0,
+                characterPosition: WAYPOINTS[0].pos,
+                cameraY: 0,
+                scene: 'INTRO',
+                isMoving: false,
+                answers: [],
+                finalResult: null,
+            };
+            targetIndex = 0;
+            renderGame();
+        }
 
 
 
-    <script src="script.js"></script>
-    <script src="mask-test.js"></script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGame();
+        });
+
+        window.startGame = startGame;
+        window.selectAnswer = selectAnswer;
+        window.resetGame = resetGame;
+        window.moveCharacter = moveCharacter;
+
+        // ========== 导航栏功能 ==========
+        let header, menuToggle, dropdownMenu, dropdownOverlay, searchBtn, searchPanel, searchClose;
+
+        function initializeNavigation() {
+            header = document.getElementById('header');
+            menuToggle = document.getElementById('menuToggle');
+            dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownOverlay = document.getElementById('dropdownOverlay');
+            searchBtn = document.getElementById('searchBtn');
+            searchPanel = document.getElementById('searchPanel');
+            searchClose = document.getElementById('searchClose');
+
+            setupDropdownMenu();
+            setupSearchPanel();
+        }
+
+        function updateDropdownPosition() {
+            if (!header || !dropdownMenu) return;
+            
+            const headerRect = header.getBoundingClientRect();
+            const topPosition = headerRect.bottom;
+            dropdownMenu.style.top = `${topPosition}px`;
+        }
+
+        function openDropdownMenu() {
+            if (!dropdownMenu || !dropdownOverlay || !menuToggle) return;
+            
+            updateDropdownPosition();
+            dropdownMenu.classList.add('active');
+            dropdownOverlay.classList.add('active');
+            menuToggle.classList.add('active');
+        }
+
+        function closeDropdownMenu() {
+            if (!dropdownMenu || !dropdownOverlay || !menuToggle) return;
+            
+            dropdownMenu.classList.remove('active');
+            dropdownOverlay.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+
+        function setupDropdownMenu() {
+            if (!menuToggle || !dropdownOverlay) return;
+            
+            menuToggle.addEventListener('click', () => {
+                if (dropdownMenu.classList.contains('active')) {
+                    closeDropdownMenu();
+                } else {
+                    openDropdownMenu();
+                }
+            });
+
+            dropdownOverlay.addEventListener('click', closeDropdownMenu);
+
+            // 滚动时更新下拉菜单位置
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                if (dropdownMenu && dropdownMenu.classList.contains('active')) {
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        updateDropdownPosition();
+                    }, 10);
+                }
+            });
+
+            // 点击导航链接后关闭菜单
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', closeDropdownMenu);
+            });
+        }
+
+        function openSearch() {
+            if (!searchPanel) return;
+            
+            searchPanel.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }, 300);
+        }
+
+        function closeSearch() {
+            if (!searchPanel) return;
+            
+            searchPanel.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function setupSearchPanel() {
+            if (!searchBtn || !searchClose) return;
+            
+            searchBtn.addEventListener('click', openSearch);
+            searchClose.addEventListener('click', closeSearch);
+
+            // ESC 键关闭搜索
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && searchPanel && searchPanel.classList.contains('active')) {
+                    closeSearch();
+                }
+            });
+        }
+
+        // 初始化导航栏功能
+        initializeNavigation();
+    </script>
 </body>
 </html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面具之魂：探寻你的非洲部落化身</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Nunito:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+        font-family: 'Nunito', 'PingFang SC', 'Microsoft YaHei', 'Heiti SC', sans-serif;
+        background-color: #fdfbf7;
+        overflow: hidden; 
+        touch-action: none;
+      }
+      .font-hand {
+        font-family: 'Gochi Hand', 'ZCOOL KuaiLe', 'YouYuan', 'Microsoft YaHei', sans-serif;
+      }
+      
+      /* Notebook Paper Background Pattern */
+      .bg-notebook-paper {
+        background-color: #fdfbf7;
+        background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+        background-size: 100% 24px;
+      }
+
+      /* Character Animation */
+      @keyframes bounce-move {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-8px) scale(1.05); }
+      }
+      .animate-bounce-move {
+        animation: bounce-move 0.4s infinite linear;
+      }
+
+      /* Leg Animations */
+      @keyframes leg-swing {
+        0%, 100% { transform: rotate(-25deg); }
+        50% { transform: rotate(25deg); }
+      }
+      @keyframes leg-swing-opp {
+        0%, 100% { transform: rotate(25deg); }
+        50% { transform: rotate(-25deg); }
+      }
+      
+      /* Arm Animations */
+      @keyframes arm-swing {
+        0%, 100% { transform: rotate(20deg); }
+        50% { transform: rotate(-20deg); }
+      }
+      @keyframes arm-swing-opp {
+        0%, 100% { transform: rotate(-20deg); }
+        50% { transform: rotate(20deg); }
+      }
+
+      .animate-leg {
+        animation: leg-swing 0.8s infinite ease-in-out;
+      }
+      .animate-leg-opp {
+        animation: leg-swing-opp 0.8s infinite ease-in-out;
+      }
+      .animate-arm {
+        animation: arm-swing 0.8s infinite ease-in-out;
+      }
+      .animate-arm-opp {
+        animation: arm-swing-opp 0.8s infinite ease-in-out;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    </style>
+</head>
+<body>
+    <div id="app" class="relative w-full h-screen bg-stone-200 overflow-hidden flex justify-center font-hand">
+        <div class="relative w-full max-w-[480px] h-full bg-orange-50 shadow-2xl overflow-hidden">
+            <!-- Game Container -->
+            <div id="gameContainer" class="relative w-full h-full">
+                <!-- Loading will be replaced by game content -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game Data
+        const WORLD_HEIGHT = 4200;
+        
+        const QUESTIONS = [
+            {
+                id: 1,
+                text: "第一题：你如何看待自己在社群中的角色？",
+                options: [
+                    { text: "A. 守护者。我本能地保护身边的人，维护秩序与正义，是大家信赖的依靠。", type: 'A' },
+                    { text: "B. 智者。我乐于思考与传授知识，是连接过去与未来的桥梁，常为他人指引方向。", type: 'B' },
+                    { text: "C. 沟通者。我擅长协调矛盾，传递信息，是促进群体和谐与理解的纽带。", type: 'C' },
+                    { text: "D. 治愈者。我充满同理心，能抚慰他人情绪，并热爱自然与生命的力量。", type: 'D' },
+                ]
+            },
+            {
+                id: 2,
+                text: "第二题：哪种力量最让你心生向往？",
+                options: [
+                    { text: "A. 雄狮的勇气。无畏、强大，拥有征服一切困难的决心。", type: 'A' },
+                    { text: "B. 猎豹的灵巧。敏捷、精准，总能洞察先机，找到最佳路径。", type: 'B' },
+                    { text: "C. 大象的智慧。沉稳、长寿，拥有古老的记忆和家族凝聚力。", type: 'C' },
+                    { text: "D. 雨水的滋养。温柔、潜移默化，能带来新生与希望。", type: 'D' },
+                ]
+            },
+            {
+                id: 3,
+                text: "第三题：面对一个未知的挑战，你的第一反应是？",
+                options: [
+                    { text: "A. 正面迎接。制定计划，集结力量，直接而果断地解决问题。", type: 'A' },
+                    { text: "B. 深入洞察。先观察、分析，理解其本质和规律，再寻求破解之道。", type: 'B' },
+                    { text: "C. 寻求协作。联系同伴，交换信息，集合众人的智慧共同面对。", type: 'C' },
+                    { text: "D. 顺应节奏。调整自身状态，像水一样流动，在适应中找到机会。", type: 'D' },
+                ]
+            },
+            {
+                id: 4,
+                text: "第四题：你希望他人如何记住你？",
+                options: [
+                    { text: "A. 一个强大的传奇。我的存在本身，就是一种力量和庇护。", type: 'A' },
+                    { text: "B. 一个智慧的源泉。我的思想和话语，能持续启发后人。", type: 'B' },
+                    { text: "C. 一个和谐的象征。我让世界变得更加包容与美好。", type: 'C' },
+                    { text: "D. 一个生命的礼赞。我带来了欢乐、治愈与连接。", type: 'D' },
+                ]
+            },
+            {
+                id: 5,
+                text: "第五题：在社交场合中，你通常是？",
+                options: [
+                    { text: "A. 话题主导者。能自然地引领对话节奏，气场强大。", type: 'A' },
+                    { text: "B. 深度剖析者。喜欢进行有意义的对话，并提出独特见解。", type: 'B' },
+                    { text: "C. 氛围调节者。关注每个人的感受，确保场面和谐愉快。", type: 'C' },
+                    { text: "D. 安静倾听者。善于理解他人，并提供温暖的陪伴和支持。", type: 'D' },
+                ]
+            },
+            {
+                id: 6,
+                text: "第六题：你更偏爱哪种创作方式？",
+                options: [
+                    { text: "A. 构建宏大的体系。比如策划一个项目，搭建一个清晰的框架。", type: 'A' },
+                    { text: "B. 解构复杂的概念。比如研究理论，将抽象事物具象化。", type: 'B' },
+                    { text: "C. 编织精妙的故事。比如通过叙述来连接人与人之间的情感。", type: 'C' },
+                    { text: "D. 感受即兴的灵感。比如随心的涂鸦、音乐或舞蹈，表达瞬间的情绪。", type: 'D' },
+                ]
+            },
+            {
+                id: 7,
+                text: "第七题：你认为什么是理想的社区？",
+                options: [
+                    { text: "A. 纪律严明的堡垒。安全、有序，拥有强大的防御和规则。", type: 'A' },
+                    { text: "B. 思想自由的学城。鼓励探索知识，尊重智慧和创新。", type: 'B' },
+                    { text: "C. 平等互助的联盟。没有隔阂，人们通过沟通达成共识。", type: 'C' },
+                    { text: "D. 亲近自然的部落。与环境和诸共处，生活节奏顺应天地。", type: 'D' },
+                ]
+            },
+            {
+                id: 8,
+                text: "第八题：你如何定义自己的"美"？",
+                options: [
+                    { text: "A. 力量之美。体现在坚韧、果断和实际的成就上。", type: 'A' },
+                    { text: "B. 智慧之美。体现在深邃的思想、洞察力和创造力上。", type: 'B' },
+                    { text: "C. 和谐之美。体现在优雅的举止、得体的言行和平衡感上。", type: 'C' },
+                    { text: "D. 本真之美。体现在质朴的内心、真实的情感和生命力上。", type: 'D' },
+                ]
+            }
+        ];
+
+        const ASSETS = {
+            avatar: "🗿", 
+            totems: ["🦁", "🏺", "🐍", "🔥", "🥁", "🎭", "🦅", "🌞"],
+            trees: ["🌳", "🌴", "🌵", "🌿"],
+            houses: ["🛖", "⛺"],
+            rocks: ["🪨", "⛰️"],
+        };
+
+        const WAYPOINTS = [
+            { pos: { x: 50, y: 320 } },
+            { pos: { x: 20, y: 450 }, questionId: 1, totem: ASSETS.totems[0] },
+            { pos: { x: 80, y: 750 }, questionId: 2, totem: ASSETS.totems[1] },
+            { pos: { x: 30, y: 1100 }, questionId: 3, totem: ASSETS.totems[2] },
+            { pos: { x: 70, y: 1450 }, questionId: 4, totem: ASSETS.totems[3] },
+            { pos: { x: 25, y: 1850 }, questionId: 5, totem: ASSETS.totems[4] },
+            { pos: { x: 75, y: 2200 }, questionId: 6, totem: ASSETS.totems[5] },
+            { pos: { x: 20, y: 2600 }, questionId: 7, totem: ASSETS.totems[6] },
+            { pos: { x: 50, y: 3000 }, questionId: 8, totem: ASSETS.totems[7] },
+            { pos: { x: 50, y: 3400 }, isEnd: true },
+        ];
+
+        const RESULTS = {
+            '1': {
+                id: '1',
+                name: "刚果王国 · 恩基西勇士面具",
+                title: "守护型人格 · 秩序铁拳",
+                trait: "权威",
+                strength: "裁决",
+                skill: "主持公道",
+                desc: "你是部落规则的化身，公正的捍卫者。气场自带边界感，能镇住一切骚动，是让人安心托付的"人间秤砣"。",
+                color: "bg-red-100",
+                icon: "🛡️"
+            },
+            '2': {
+                id: '2',
+                name: "班巴拉部落 · 契瓦拉羚羊顶饰",
+                title: "创造型人格 · 丰饶大师",
+                trait: "勤奋",
+                strength: "高产",
+                skill: "点土成金",
+                desc: "你的创造力如同沃土，总能孕育出惊艳的果实。是天生的建设者，在你身边总能感受到万物生长的蓬勃朝气。",
+                color: "bg-green-100",
+                icon: "🌾"
+            },
+            '3': {
+                id: '3',
+                name: "多贡部落 · 大面具",
+                title: "哲思型人格 · 宇宙模组",
+                trait: "深邃",
+                strength: "洞察",
+                skill: "参透本质",
+                desc: "你的精神连接着星辰与古老智慧。喜欢探寻万物规律，是朋友中行走的"百科圣光"，总能带来降维打击的启发。",
+                color: "bg-indigo-100",
+                icon: "🌌"
+            },
+            '4': {
+                id: '4',
+                name: "鲍勒部落 · 人面神灵面具",
+                title: "和谐型人格 · 美学标杆",
+                trait: "优雅",
+                strength: "平衡",
+                skill: "颜值维稳",
+                desc: "你崇尚并创造着一切形式的美与和谐。是社交圈里的定海神针，能用温柔的力量抚平毛躁，让世界变得优雅从容。",
+                color: "bg-pink-100",
+                icon: "🎭"
+            },
+            '5': {
+                id: '5',
+                name: "塞努福部落 · 火法师面具",
+                title: "力量型人格 · 野性图腾",
+                trait: "狂野",
+                strength: "威慑",
+                skill: "气场全开",
+                desc: "你体内封印着最原始的生命力，无畏且强大。是攻坚克难的不二人选，拥有用行动粉碎一切障碍的硬核魅力。",
+                color: "bg-orange-100",
+                icon: "🔥"
+            },
+            '6': {
+                id: '6',
+                name: "马康德部落 · 谢塔尼面具",
+                title: "灵感型人格 · 梦境捕手",
+                trait: "抽象",
+                strength: "创意",
+                skill: "脑洞开花",
+                desc: "你的思维不受重力束缚，是天生的幻想建筑师。总能从异次元带来惊喜，是团队里不可或缺的灵感永动机。",
+                color: "bg-purple-100",
+                icon: "🌀"
+            },
+            '7': {
+                id: '7',
+                name: "丹部落 · 格莱面具",
+                title: "调解型人格 · 和平基站",
+                trait: "宁静",
+                strength: "凝聚",
+                skill: "化干戈为玉帛",
+                desc: "你拥有让对立双方冷静下来的魔力。是人际关系的润滑剂，总能精准找到共识，让世界因你而更团结。",
+                color: "bg-teal-100",
+                icon: "🕊️"
+            },
+            '8': {
+                id: '8',
+                name: "库巴王国 · 姆瓦什·安博伊面具",
+                title: "领袖型人格 · 天选贵族",
+                trait: "华丽",
+                strength: "统御",
+                skill: "华丽控场",
+                desc: "你的魅力来自与生俱来的格局与气场。无需刻意强调，就能成为人群的中心，指引方向，天生就是大场面玩家。",
+                color: "bg-yellow-100",
+                icon: "👑"
+            },
+            '9': {
+                id: '9',
+                name: "约鲁巴部落 · 盖莱德面具",
+                title: "沟通型人格 · 幽默观察家",
+                trait: "诙谐",
+                strength: "警世",
+                skill: "寓教于乐",
+                desc: "你擅长用幽默包裹智慧，在欢声笑语中点破真相。是洞察人性的社交艺术家，你的"吐槽"总让人心服口服。",
+                color: "bg-blue-100",
+                icon: "👁️"
+            },
+            '10': {
+                id: '10',
+                name: "潘格威部落 · 布洛面具",
+                title: "治愈型人格 · 月光灵医",
+                trait: "通透",
+                strength: "抚慰",
+                skill: "情绪SPA",
+                desc: "你散发着月光般温柔而强大的治愈力。能轻易共情，倾听并净化负能量，是朋友信赖的"心灵按摩师"。",
+                color: "bg-cyan-100",
+                icon: "🌙"
+            },
+        };
+
+        // Game State
+        let gameState = {
+            currentWaypointIndex: 0,
+            characterPosition: WAYPOINTS[0].pos,
+            cameraY: 0,
+            scene: 'INTRO',
+            isMoving: false,
+            answers: [],
+            finalResult: null,
+        };
+
+        let targetIndex = 0;
+
+        // Render Functions
+        function renderGame() {
+            const container = document.getElementById('gameContainer');
+            
+            if (gameState.scene === 'INTRO') {
+                renderIntro(container);
+            } else if (gameState.scene === 'QUIZ_STOP') {
+                renderQuiz(container);
+            } else if (gameState.scene === 'ENDING') {
+                renderResult(container);
+            } else {
+                renderWalking(container);
+            }
+        }
+
+        function renderIntro(container) {
+            container.innerHTML = `
+                <div class="absolute w-full h-full bg-notebook-paper transition-transform duration-500" style="transform: translateY(0px)">
+                    <div class="absolute w-full top-[60px] flex flex-col items-center text-center px-6 z-20">
+                        <h1 class="text-6xl font-hand font-black text-amber-900 mb-6 tracking-tighter mix-blend-multiply opacity-90">
+                            面具之魂
+                        </h1>
+                        <div class="font-hand text-amber-800 leading-relaxed max-w-sm mix-blend-multiply opacity-80 flex flex-col items-center">
+                            <span class="block border-b-2 border-amber-900/10 pb-3 mb-3 text-3xl font-bold">探寻你的非洲部落化身</span>
+                            <span class="text-xl font-normal">测测你是什么类型的非洲部落面具</span>
+                        </div>
+                        
+                        <button onclick="startGame()" class="mt-80 px-8 py-3 bg-[#fdfbf7] border-2 border-amber-900 text-amber-900 font-hand text-2xl rounded-sm shadow-[4px_4px_0px_0px_#5D4037] hover:bg-amber-50 active:shadow-none active:translate-x-1 active:translate-y-1 transition-all">
+                            开始旅程
+                        </button>
+                    </div>
+
+                    <!-- SVG Character -->
+                    <div class="absolute z-30" style="left: 50%; top: 320px; transform: translate(-50%, -90%);">
+                        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-3 bg-black/20 rounded-[100%] blur-[1.5px]"></div>
+                        <div class="relative w-20 h-20">
+                            ${getCharacterSVG(false)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuiz(container) {
+            const currentWaypointData = WAYPOINTS[gameState.currentWaypointIndex];
+            const currentQuestion = QUESTIONS.find(q => q.id === currentWaypointData.questionId);
+            
+            container.innerHTML = `
+                <div class="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/10 backdrop-blur-[1px] fade-in">
+                    <div class="w-full max-w-md bg-[#fffdf5] p-6 border-2 border-amber-900 shadow-[8px_8px_0px_0px_rgba(60,40,30,0.15)] rounded-sm flex flex-col max-h-[85vh] relative transform rotate-1">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-amber-400/30 rotate-[-2deg] shadow-sm backdrop-blur-sm"></div>
+
+                        <div class="text-amber-800/40 text-xs font-bold uppercase tracking-widest mb-4 text-center shrink-0 font-hand">
+                            Checkpoint ${currentQuestion.id}
+                        </div>
+                        
+                        <div class="overflow-y-auto mb-6 shrink-0 text-center">
+                            <h3 class="text-2xl font-hand font-bold text-amber-950 leading-tight">
+                                ${currentQuestion.text}
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3 overflow-y-auto flex-1 pr-1">
+                            ${currentQuestion.options.map((opt, idx) => `
+                                <button
+                                    onclick="selectAnswer('${opt.type}')"
+                                    class="w-full text-left p-4 bg-transparent border-2 border-stone-200 hover:border-amber-400 hover:bg-amber-50 transition-all font-hand text-lg text-amber-900 rounded-sm active:scale-[0.99]"
+                                >
+                                    <span class="font-bold mr-2 text-amber-600">${opt.text.split('.')[0]}.</span>
+                                    ${opt.text.split('.').slice(1).join('.')}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResult(container) {
+            const result = RESULTS[gameState.finalResult];
+            
+            container.innerHTML = `
+                <div class="absolute inset-0 z-50 flex items-center justify-center bg-[#fdfbf7]/95 fade-in">
+                    <div class="w-full h-full max-w-md overflow-y-auto p-6 flex flex-col items-center justify-center">
+                        <div class="w-full bg-white border-2 border-amber-950 p-6 shadow-[10px_10px_0_0_rgba(0,0,0,0.05)] rounded-sm relative shrink-0 transform -rotate-1">
+                            <div class="absolute -top-4 right-10 w-24 h-8 bg-red-400/20 rotate-3 backdrop-blur-sm"></div>
+
+                            <div class="text-center mb-6 mt-4">
+                                <div class="text-7xl mb-4 opacity-90 mix-blend-multiply">${result.icon}</div>
+                                <h2 class="text-2xl md:text-3xl font-bold font-hand text-amber-900 leading-none mb-2">
+                                    ${result.name}
+                                </h2>
+                                ${result.tribe ? `<div class="text-sm text-amber-600 mb-2">${result.tribe}</div>` : ''}
+                                <div class="w-full h-px bg-amber-900/20 my-3"></div>
+                                <h3 class="text-lg font-hand text-amber-700 italic">
+                                    ${result.title}
+                                </h3>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 text-center font-hand text-sm text-amber-900 mb-6 bg-stone-50 p-3 rounded border border-dashed border-stone-300">
+                                <div class="flex flex-col justify-center">
+                                    <div class="opacity-50 text-[10px] uppercase mb-1">特质</div>
+                                    <span class="font-bold">${result.trait}</span>
+                                </div>
+                                <div class="border-l border-r border-stone-200 px-1 flex flex-col justify-center">
+                                    <div class="opacity-50 text-[10px] uppercase mb-1">优势</div>
+                                    <span class="font-bold">${result.strength}</span>
+                                </div>
+                                <div class="flex flex-col justify-center">
+                                    <div class="opacity-50 text-[10px] uppercase mb-1">拿手好戏</div>
+                                    <span class="font-bold">${result.skill}</span>
+                                </div>
+                            </div>
+
+                            <p class="text-center font-hand text-amber-950 text-lg leading-relaxed mb-8 px-2">
+                                ${result.desc}
+                            </p>
+                            
+                            <button 
+                                onclick="resetGame()"
+                                class="w-full py-4 bg-amber-900 text-white font-bold font-hand text-xl rounded shadow hover:bg-amber-800 transition-colors flex items-center justify-center gap-2 group active:scale-95"
+                            >
+                                <span>🔄</span> 
+                                <span>再测一次</span>
+                            </button>
+                        </div>
+
+                        <div class="mt-8 text-amber-900/30 font-hand text-sm text-center pb-8">
+                            Mask Soul Personality Test
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderWalking(container) {
+            container.innerHTML = `
+                <div class="absolute w-full h-full bg-notebook-paper transition-transform duration-500" style="transform: translateY(-${gameState.cameraY}px); height: ${WORLD_HEIGHT}px">
+                    <!-- SVG Character -->
+                    <div class="absolute z-30" style="left: ${gameState.characterPosition.x}%; top: ${gameState.characterPosition.y}px; transform: translate(-50%, -90%);">
+                        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-3 bg-black/20 rounded-[100%] blur-[1.5px]"></div>
+                        <div class="relative w-20 h-20 ${gameState.isMoving ? 'animate-bounce-move' : ''}">
+                            ${getCharacterSVG(gameState.isMoving)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getCharacterSVG(isAnimating) {
+            return `
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                    <g>
+                        <g style="transform-origin: 45px 75px" class="${isAnimating ? 'animate-leg' : ''}">
+                            <path d="M45 75 L45 95" stroke="#8D5524" stroke-width="6" stroke-linecap="round" />
+                        </g>
+                        <g style="transform-origin: 40px 55px" class="${isAnimating ? 'animate-arm' : ''}">
+                            <path d="M40 55 L30 65" stroke="#8D5524" stroke-width="5" stroke-linecap="round" />
+                        </g>
+                        <path d="M36 70 L42 85 L48 70" fill="#b45309" />
+                        <path d="M42 70 L48 85 L54 70" fill="#b45309" />
+                        <rect x="38" y="48" width="24" height="26" rx="4" fill="#8D5524" />
+                        <path d="M38 48 L38 72 L46 72 L46 48 Z" fill="#9a3412" />
+                        <path d="M54 48 L54 72 L62 72 L62 48 Z" fill="#9a3412" />
+                        <g style="transform-origin: 55px 75px" class="${isAnimating ? 'animate-leg-opp' : ''}">
+                            <path d="M55 75 L55 95" stroke="#8D5524" stroke-width="6" stroke-linecap="round" />
+                        </g>
+                        <path d="M34 72 L38 88 L42 75 L46 88 L50 75 L54 88 L58 75 L62 88 L66 72" fill="#eab308" stroke="#a16207" stroke-width="1" stroke-linejoin="round" />
+                        <path d="M34 72 L66 72" stroke="#713f12" stroke-width="3" stroke-linecap="round" />
+                        <circle cx="50" cy="38" r="17" fill="#8D5524" />
+                        <path d="M33 32 Q50 22 67 32" stroke="#fbbf24" stroke-width="3" fill="none" />
+                        <path d="M44 22 L40 5 L48 15" fill="#ef4444" />
+                        <circle cx="54" cy="36" r="2" fill="#1a1a1a" />
+                        <circle cx="62" cy="36" r="2" fill="#1a1a1a" />
+                        <path d="M52 42 L56 44" stroke="#fff" stroke-width="2" opacity="0.6" stroke-linecap="round" />
+                        <path d="M60 42 L64 44" stroke="#fff" stroke-width="2" opacity="0.6" stroke-linecap="round" />
+                        <g style="transform-origin: 60px 55px" class="${isAnimating ? 'animate-arm-opp' : ''}">
+                            <path d="M60 55 L70 65" stroke="#8D5524" stroke-width="5" stroke-linecap="round" />
+                        </g>
+                    </g>
+                </svg>
+            `;
+        }
+
+        // Game Functions
+        function startGame() {
+            targetIndex = 1;
+            moveCharacter();
+        }
+
+        function moveCharacter() {
+            if (gameState.currentWaypointIndex === targetIndex) {
+                gameState.isMoving = false;
+                
+                const currentPoint = WAYPOINTS[gameState.currentWaypointIndex];
+                if (currentPoint.questionId && gameState.scene !== 'QUIZ_STOP') {
+                    gameState.scene = 'QUIZ_STOP';
+                }
+                
+                if (currentPoint.isEnd && gameState.scene !== 'ENDING') {
+                    calculateResult();
+                }
+                
+                renderGame();
+                return;
+            }
+
+            const nextIndex = gameState.currentWaypointIndex + 1;
+            const startPos = WAYPOINTS[gameState.currentWaypointIndex].pos;
+            const endPos = WAYPOINTS[nextIndex].pos;
+            
+            let progress = 0;
+            const speed = 0.02;
+
+            function animate() {
+                progress += speed;
+                if (progress >= 1) progress = 1;
+
+                const newX = startPos.x + (endPos.x - startPos.x) * progress;
+                const newY = startPos.y + (endPos.y - startPos.y) * progress;
+
+                const viewportHeight = window.innerHeight;
+                let targetCameraY = newY - (viewportHeight * 0.5);
+                if (targetCameraY < 0) targetCameraY = 0;
+                if (targetCameraY > WORLD_HEIGHT - viewportHeight) targetCameraY = WORLD_HEIGHT - viewportHeight;
+
+                gameState.characterPosition = { x: newX, y: newY };
+                gameState.cameraY = targetCameraY;
+                gameState.scene = 'WALKING';
+                gameState.isMoving = true;
+
+                if (progress < 1) {
+                    renderGame();
+                    requestAnimationFrame(animate);
+                } else {
+                    gameState.currentWaypointIndex = nextIndex;
+                    animate();
+                }
+            }
+
+            animate();
+        }
+
+        function selectAnswer(type) {
+            gameState.answers.push(type);
+            gameState.scene = 'WALKING';
+            targetIndex++;
+            moveCharacter();
+        }
+
+        function calculateResult() {
+            const counts = { A: 0, B: 0, C: 0, D: 0 };
+            gameState.answers.forEach(a => {
+                if (counts[a] !== undefined) counts[a]++;
+            });
+
+            const maxScore = Math.max(counts.A, counts.B, counts.C, counts.D);
+            
+            // Check for 4-way tie
+            if (counts.A === counts.B && counts.B === counts.C && counts.C === counts.D) {
+                gameState.finalResult = '7';
+            } else {
+                // Find dominant trait
+                let dominant = '';
+                if (counts.A === maxScore) dominant = 'A';
+                else if (counts.B === maxScore) dominant = 'B';
+                else if (counts.C === maxScore) dominant = 'C';
+                else dominant = 'D';
+
+                // Map dominant trait to result IDs
+                let possibleResults = [];
+                if (dominant === 'A') possibleResults = ['1', '5'];
+                if (dominant === 'B') possibleResults = ['3', '8'];
+                if (dominant === 'C') possibleResults = ['4', '7', '9'];
+                if (dominant === 'D') possibleResults = ['2', '6', '10'];
+
+                // Deterministic selection
+                const hash = gameState.answers.join('').split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                gameState.finalResult = possibleResults[hash % possibleResults.length];
+            }
+
+            gameState.scene = 'ENDING';
+            renderGame();
+        }
+
+        function resetGame() {
+            gameState = {
+                currentWaypointIndex: 0,
+                characterPosition: WAYPOINTS[0].pos,
+                cameraY: 0,
+                scene: 'INTRO',
+                isMoving: false,
+                answers: [],
+                finalResult: null,
+            };
+            targetIndex = 0;
+            renderGame();
+        }
+
+        // Initialize game
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGame();
+        });
+
+        // Make functions globally accessible
+        window.startGame = startGame;
+        window.selectAnswer = selectAnswer;
+        window.resetGame = resetGame;
+        window.moveCharacter = moveCharacter;
+    </script>
+</body>
+</html>
